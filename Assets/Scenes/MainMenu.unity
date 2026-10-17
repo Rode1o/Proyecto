@@ -1398,7 +1398,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: "<b><color=#8C4A14>Acci\xF3n<pos=38%>Teclado y rat\xF3n</color></b>\n\nMoverse<pos=38%>Clic izq. sobre el terreno\nGirar la c\xE1mara<pos=38%>Mantener clic der. y arrastrar\nInteractuar<pos=38%>Clic izq. sobre un mecanismo y mantener\nJugar minijuego<pos=38%>Clic izq. sobre los puntos o cartas\nCerrar minijuego<pos=38%>Esc o bot\xF3n Cerrar\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b737e00322ee4d54a86599a005e7bd9f, type: 2}
   m_sharedMaterial: {fileID: 7201232550083615019, guid: b737e00322ee4d54a86599a005e7bd9f, type: 2}
@@ -2424,7 +2424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2463a340072a73e48aba8d9d6e2163b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenu
-  gameSceneName: SampleScene
+  gameSceneName: Islands
   playButton: {fileID: 1618142032}
   controlsButton: {fileID: 616197877}
   settingsButton: {fileID: 1739822870}
@@ -16066,9 +16066,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da1fb7da6fce2cd4188f93cba5d1707b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ControlsMenu
-  actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  actionMapName: Player
   listText: {fileID: 191317347}
+  entries:
+  - action: Moverse
+    control: Clic izq. sobre el terreno
+  - action: "Girar la c\xE1mara"
+    control: Mantener clic der. y arrastrar
+  - action: Interactuar
+    control: Clic izq. sobre un mecanismo y mantener
+  - action: Jugar minijuego
+    control: Clic izq. sobre los puntos o cartas
+  - action: Cerrar minijuego
+    control: "Esc o bot\xF3n Cerrar"
 --- !u!114 &2114861323
 MonoBehaviour:
   m_ObjectHideFlags: 0

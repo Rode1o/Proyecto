@@ -16,8 +16,7 @@ using UnityEngine.UI;
 static class MainMenuSceneBuilder
 {
     const string ScenePath = "Assets/Scenes/MainMenu.unity";
-    const string GameScenePath = "Assets/Scenes/SampleScene.unity";
-    const string InputActionsPath = "Assets/InputSystem_Actions.inputactions";
+    const string GameScenePath = "Assets/Scenes/Islands.unity";
 
     const string ArtPath = "Assets/Art/UI/MainMenu/";
     const string IconPath = "Assets/Art/UI/Icons/";
@@ -155,7 +154,6 @@ static class MainMenuSceneBuilder
 
         var controlsMenu = controlsContent.gameObject.AddComponent<ControlsMenu>();
         var controlsSo = new SerializedObject(controlsMenu);
-        controlsSo.FindProperty("actions").objectReferenceValue = AssetDatabase.LoadAssetAtPath<InputActionAsset>(InputActionsPath);
         controlsSo.FindProperty("listText").objectReferenceValue = controlsList;
         controlsSo.ApplyModifiedPropertiesWithoutUndo();
 

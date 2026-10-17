@@ -10,7 +10,7 @@ using UnityEngine.UI;
 /// </summary>
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] string gameSceneName = "SampleScene";
+    [SerializeField] string gameSceneName = "Islands";
 
     [Header("Botones del menú principal")]
     [SerializeField] Button playButton;
