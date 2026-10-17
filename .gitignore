@@ -75,3 +75,6 @@ crashlytics-build.properties
 .DS_Store
 Thumbs.db
 Desktop.ini
+
+# ===== Notas locales de Claude Code =====
+CLAUDE.md
