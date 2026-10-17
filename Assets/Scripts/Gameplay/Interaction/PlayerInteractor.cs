@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -5,8 +6,9 @@ using UnityEngine.InputSystem;
 /// <summary>
 /// Gestiona la interacción del jugador con objetos <see cref="Interactable"/>:
 /// clic izquierdo sobre el objeto → si está lejos, camina hasta él con ClickToMove →
-/// ya en rango, mantener el clic llena el progreso.
+/// ya en rango, mantener el clic llena el progreso (o, si el objeto no requiere mantener, se completa al llegar).
 /// Política de cancelación: soltar el clic, pulsar el derecho o alejarse reinicia el progreso a 0.
+/// Un clic en otro destino reemplaza el objetivo actual.
 /// </summary>
 [RequireComponent(typeof(ClickToMove))]
 public class PlayerInteractor : MonoBehaviour
@@ -21,6 +23,9 @@ public class PlayerInteractor : MonoBehaviour
     bool approaching;
     // El clic izquierdo se pulsó sobre el objetivo y sigue mantenido.
     bool pressHeld;
+
+    /// <summary>Se lanza al hacer clic en un objeto cuyos requisitos no se cumplen, con el motivo.</summary>
+    public event Action<Interactable, string> InteractionBlocked;
 
     public Interactable Target => target;
     public bool IsHolding => target != null && target.Progress > 0f;
@@ -55,7 +60,7 @@ public class PlayerInteractor : MonoBehaviour
 
         if (approaching)
         {
-            if (distance <= target.ActivationRadius)
+            if (target.IsReachableFrom(transform.position))
             {
                 approaching = false;
                 mover.Stop();
@@ -74,7 +79,7 @@ public class PlayerInteractor : MonoBehaviour
             return;
         }
 
-        if (!pressHeld || mouse.rightButton.isPressed)
+        if (target.RequiresHold && (!pressHeld || mouse.rightButton.isPressed))
         {
             target.CancelHold();
             return;
@@ -102,6 +107,14 @@ public class PlayerInteractor : MonoBehaviour
             return;
         }
 
+        // Bloqueado (p. ej. faltan objetos de la isla): se avisa y no se camina hacia él.
+        if (!clicked.RequirementsMet(out var reason))
+        {
+            Clear();
+            InteractionBlocked?.Invoke(clicked, reason);
+            return;
+        }
+
         if (clicked != target)
         {
             Clear();
@@ -110,7 +123,7 @@ public class PlayerInteractor : MonoBehaviour
 
         pressHeld = true;
 
-        if (target.IsInRange(transform.position))
+        if (target.IsReachableFrom(transform.position))
         {
             approaching = false;
             mover.Stop();

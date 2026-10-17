@@ -1,16 +1,20 @@
 using System;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 
 /// <summary>
 /// Marca un objeto del escenario como interactuable: el jugador se acerca y mantiene el clic
-/// izquierdo durante <see cref="HoldDuration"/> segundos. Al completarse lanza <see cref="Completed"/>
+/// izquierdo durante <see cref="HoldDuration"/> segundos (o, sin requireHold, basta con llegar).
+/// Al completarse lanza <see cref="Completed"/>
 /// y <c>onCompleted</c>; quien abra el contenido (un minijuego, por ejemplo) se suscribe a esos eventos.
 /// Necesita un Collider no trigger en este objeto o en sus hijos.
 /// </summary>
 [DisallowMultipleComponent]
 public class Interactable : MonoBehaviour
 {
+    [Tooltip("Si está desactivado, la interacción se completa sola al entrar en rango (p. ej. collectables).")]
+    [SerializeField] bool requireHold = true;
     [Tooltip("Segundos que hay que mantener pulsado el clic para completar la interacción.")]
     [SerializeField, Min(0f)] float holdDuration = 2f;
     [Tooltip("Distancia horizontal máxima entre el jugador y el punto de interacción.")]
@@ -21,11 +25,15 @@ public class Interactable : MonoBehaviour
     [SerializeField] Vector3 indicatorOffset = new(0f, 2f, 0f);
     [Tooltip("Permite completar la interacción más de una vez.")]
     [SerializeField] bool repeatable;
+    [Tooltip("Para objetos apoyados en suelo transitable (collectables): el jugador camina hasta el propio objeto " +
+             "y solo interactúa si hay línea directa sobre el NavMesh, así no se atraviesan muros ni se alcanza otra isla.")]
+    [SerializeField] bool onWalkableGround;
 
     [SerializeField] UnityEvent onCompleted;
 
     public event Action<Interactable> Completed;
 
+    public bool RequiresHold => requireHold;
     public float HoldDuration => holdDuration;
     public float ActivationRadius => activationRadius;
     public float Progress { get; private set; }
@@ -43,14 +51,52 @@ public class Interactable : MonoBehaviour
 
     public bool IsInRange(Vector3 position) => HorizontalDistance(position) <= activationRadius;
 
+    IInteractionRequirement[] requirements = Array.Empty<IInteractionRequirement>();
+
+    void Awake()
+    {
+        requirements = GetComponents<IInteractionRequirement>();
+    }
+
+    /// <summary>
+    /// Comprueba los <see cref="IInteractionRequirement"/> del objeto (p. ej. recoger los objetos de la isla).
+    /// </summary>
+    public bool RequirementsMet(out string reason)
+    {
+        foreach (var requirement in requirements)
+            if (!requirement.IsMet(out reason))
+                return false;
+
+        reason = null;
+        return true;
+    }
+
+    /// <summary>
+    /// En rango y, si el objeto está sobre suelo transitable, con línea directa sobre el NavMesh
+    /// (un muro o el vacío entre islas cortan la línea).
+    /// </summary>
+    public bool IsReachableFrom(Vector3 position)
+    {
+        if (!IsInRange(position))
+            return false;
+        if (!onWalkableGround)
+            return true;
+
+        return NavMesh.SamplePosition(position, out var from, 1f, NavMesh.AllAreas)
+               && NavMesh.SamplePosition(transform.position, out var to, 1f, NavMesh.AllAreas)
+               && !NavMesh.Raycast(from.position, to.position, out _, NavMesh.AllAreas);
+    }
+
     /// <summary>
     /// Punto al que debe caminar el jugador. Sin interactionPoint, se elige dentro del radio
-    /// en la dirección desde la que llega el jugador.
+    /// en la dirección desde la que llega el jugador; sobre suelo transitable, el propio objeto.
     /// </summary>
     public Vector3 GetApproachPoint(Vector3 from)
     {
         if (interactionPoint != null)
             return interactionPoint.position;
+        if (onWalkableGround)
+            return transform.position;
 
         var direction = from - transform.position;
         direction.y = 0f;
@@ -65,10 +111,10 @@ public class Interactable : MonoBehaviour
     /// </summary>
     public bool AdvanceHold(float deltaTime)
     {
-        if (!CanInteract)
+        if (!CanInteract || !RequirementsMet(out _))
             return false;
 
-        Progress = holdDuration > 0f ? Mathf.Clamp01(Progress + deltaTime / holdDuration) : 1f;
+        Progress = requireHold && holdDuration > 0f ? Mathf.Clamp01(Progress + deltaTime / holdDuration) : 1f;
         if (Progress < 1f)
             return false;
 
