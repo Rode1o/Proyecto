@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{f986ae59-ac34-431f-94ec-a010f0b63e97}">
+		<property name="assetPath">
+			<value>Foley/Footsteps/Grass/fly_fs_grass_02.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>0.46866213151927438</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{5f43a3e3-8f36-4de1-929f-83ce4e5f6d82}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -79,3 +79,12 @@ Desktop.ini
 
 # ===== Notas locales de Claude Code =====
 CLAUDE.md
+
+# ===== FMOD Studio =====
+# Cache y estado local del proyecto de FMOD Studio. Los bancos de Build/ sí se suben.
+/FMOD/**/.cache/
+/FMOD/**/.user/
+/FMOD/**/.unsaved/
+# Caché de bancos que genera FMOD for Unity
+/[Aa]ssets/[Pp]lugins/FMOD/[Cc]ache/
+/fmod_editor.log
