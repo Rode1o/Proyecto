@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using FMODUnity;
 
 public enum DotNode
 {
@@ -43,6 +44,9 @@ public class ConnectDotsMinigame : Minigame
     [Header("Tiempos")]
     [SerializeField] float errorResetDelay = 1f;
     [SerializeField] float successCloseDelay = 1.2f;
+
+    [Header("Sonidos (FMOD)")]
+    [SerializeField] EventReference sonidoError;
 
     readonly List<int> selection = new();
     readonly List<Image> lines = new();
@@ -133,6 +137,10 @@ public class ConnectDotsMinigame : Minigame
     IEnumerator Fail()
     {
         locked = true;
+
+        if (!sonidoError.IsNull)
+        RuntimeManager.PlayOneShot(sonidoError);
+        
         Paint(errorColor);
         resultText.text = "Secuencia incorrecta. Inténtalo de nuevo.";
         yield return new WaitForSecondsRealtime(errorResetDelay);

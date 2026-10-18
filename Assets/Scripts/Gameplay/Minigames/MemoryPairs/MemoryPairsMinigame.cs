@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using FMODUnity;
 
 /// <summary>
 /// Minijuego de memoria: seis cartas boca abajo con tres parejas. Se revelan de dos en dos;
@@ -28,6 +29,9 @@ public class MemoryPairsMinigame : Minigame
     [Header("Tiempos")]
     [Tooltip("Segundos que quedan visibles dos cartas que no coinciden.")]
     [SerializeField] float mismatchDelay = 1f;
+
+    [Header("Sonidos (FMOD)")]
+    [SerializeField] EventReference sonidoVoltearDeNuevo;
 
     int[] layout = new int[0];
     bool[] matched = new bool[0];
@@ -141,6 +145,10 @@ public class MemoryPairsMinigame : Minigame
         resolving = true;
         resultText.text = "No coinciden.";
         yield return new WaitForSecondsRealtime(mismatchDelay);
+
+        if (!sonidoVoltearDeNuevo.IsNull)
+        RuntimeManager.PlayOneShot(sonidoVoltearDeNuevo);
+
         cards[a].ShowHidden(backColor);
         cards[b].ShowHidden(backColor);
         resultText.text = string.Empty;
