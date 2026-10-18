@@ -536,8 +536,8 @@ MonoBehaviour:
   switchSettingsMigration: 1
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: FMOD/WomenGameJam_LaCasaDeLaBruja/WomenGameJam_LaCasaDeLaBruja.fspro
-  sourceBankPath: FMOD/WomenGameJam_LaCasaDeLaBruja/Build
+  sourceProjectPath: ../WomenGameJam_LaCasaDeLaBruja/WomenGameJam_LaCasaDeLaBruja.fspro
+  sourceBankPath: ../WomenGameJam_LaCasaDeLaBruja/Build
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1
