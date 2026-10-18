@@ -38,6 +38,7 @@ static class PlayerHudBuilder
     const float QuestPanelWidth = 460f;
     const float DiaryButtonSize = 150f;
     const float DiaryWidth = 1300f;
+    const float NotificationWidth = 430f;
 
     // Retrato de la oveja, abajo a la izquierda. Proporciones respecto al marco de 1254 px.
     const float PortraitSize = 260f;
@@ -45,6 +46,20 @@ static class PlayerHudBuilder
     const float PortraitMaskRatio = 0.78f;
     const float PortraitZoom = 1.1f;         // Algo de zoom a la cara, dejando ver el relleno alrededor.
     const string CircleMaskPath = PortraitPath + "CircleMask.png";
+
+    // Diálogo de la oveja, abajo al centro. Botones: los del menú principal (520x175, 9-slice).
+    const string DialogPath = ArtPath + "Dialog/";
+    const string MenuArtPath = "Assets/Art/UI/MainMenu/";
+    const string MenuShineMaterialPath = "Assets/Art/Shaders/MenuButtonShine.mat";
+    const float MenuButtonSpriteHeight = 175f;
+    const float DialogPortraitSize = 320f;
+    const float DialogBubbleWidth = 1150f;
+    const float DialogBubbleOverlap = 10f;  // La cola del bocadillo toca el marco del retrato.
+    const float DialogButtonGap = 10f;
+    const float DialogBottomMargin = 50f;
+    // Escala de todo el diálogo (retrato, bocadillo, textos y botones) para que no tape tanto.
+    const float DialogScale = 0.78f;
+    static readonly Vector2 DialogButtonSize = new Vector2(360f, 121f);
 
     static readonly Color InkColor = new Color32(59, 36, 20, 255);
     static readonly Color InkSoftColor = new Color32(104, 68, 40, 255);
@@ -64,6 +79,12 @@ static class PlayerHudBuilder
     static Sprite sheepSly;
     static Sprite sheepAngry;
     static Material portraitMaterial;
+    static Sprite notificationBar;
+    static Sprite dialogBubble;
+    static Sprite dialogPortrait;
+    static Sprite menuButtonActive;
+    static Sprite menuButtonInactive;
+    static Material menuShineMaterial;
     static TMP_FontAsset titleFont;
     static TMP_FontAsset bodyFont;
     static TMP_FontAsset bodyBoldFont;
@@ -119,6 +140,13 @@ static class PlayerHudBuilder
         sheepSly = ImportSprite(PortraitPath + "OvejaAstuta.png");
         sheepAngry = ImportSprite(PortraitPath + "OvejaEnfurecida.png");
         portraitMaterial = GetOrCreateMaterial(PortraitMaterialPath, PortraitShaderName);
+        notificationBar = ImportSprite(ArtPath + "BarraNotificacion.png");
+        dialogBubble = ImportSprite(DialogPath + "Bocadillo.png");
+        dialogPortrait = ImportSprite(DialogPath + "RetratoOvejaAstuta.png");
+        // Importados (con su 9-slice) por el builder del menú principal.
+        menuButtonActive = AssetDatabase.LoadAssetAtPath<Sprite>(MenuArtPath + "MenuButtonActive.png");
+        menuButtonInactive = AssetDatabase.LoadAssetAtPath<Sprite>(MenuArtPath + "MenuButtonInactive.png");
+        menuShineMaterial = AssetDatabase.LoadAssetAtPath<Material>(MenuShineMaterialPath);
         // Ya importado por el menú principal (sin mipmaps): se carga tal cual.
         diaryBackground = AssetDatabase.LoadAssetAtPath<Sprite>(DiaryBackgroundPath);
 
@@ -280,9 +308,236 @@ static class PlayerHudBuilder
 
         CreateRotateWidget(go.transform);
         CreateQuestPanel(go.transform);
-        CreateSheepPortrait(go.transform);
+        var portrait = CreateSheepPortrait(go.transform);
+        CreateItemNotification(go.transform);
         CreateDiary(go.transform);
+        // El diálogo va el último para quedar por encima de todo.
+        var dialogFill = CreateDialog(go.transform);
+
+        var portraitSo = new SerializedObject(portrait);
+        var linked = portraitSo.FindProperty("linkedFills");
+        linked.arraySize = 1;
+        linked.GetArrayElementAtIndex(0).objectReferenceValue = dialogFill;
+        portraitSo.ApplyModifiedPropertiesWithoutUndo();
         return go;
+    }
+
+    // ---------- Aviso de objeto recogido ----------
+
+    /// <summary>
+    /// Barra a la izquierda, centrada en vertical, con el icono y el nombre del objeto en blanco.
+    /// ItemNotification la mete y la saca deslizando desde fuera de la pantalla.
+    /// </summary>
+    static void CreateItemNotification(Transform canvas)
+    {
+        // El componente va en un contenedor siempre activo; la barra se activa solo al avisar.
+        var holder = CreateRect(canvas, "ItemNotification");
+        Stretch(holder);
+
+        var height = NotificationWidth * notificationBar.rect.height / notificationBar.rect.width;
+        var bar = CreateRect(holder, "Bar");
+        bar.anchorMin = bar.anchorMax = bar.pivot = new Vector2(0f, 0.5f);
+        bar.sizeDelta = new Vector2(NotificationWidth, height);
+        bar.anchoredPosition = new Vector2(CornerMargin.x, 0f);
+        var group = bar.gameObject.AddComponent<CanvasGroup>();
+        group.blocksRaycasts = false;
+        var barImage = bar.gameObject.AddComponent<Image>();
+        barImage.sprite = notificationBar;
+        barImage.raycastTarget = false;
+
+        // Zona oscura del sprite (2172x724), sin el marco ni las hojas de los lados.
+        var content = CreateRect(bar, "Content");
+        SetAnchors(content, new Vector2(0.11f, 0.31f), new Vector2(0.89f, 0.75f));
+        var layout = content.gameObject.AddComponent<HorizontalLayoutGroup>();
+        layout.spacing = 18f;
+        layout.childAlignment = TextAnchor.MiddleLeft;
+        layout.childControlWidth = true;
+        layout.childControlHeight = true;
+        layout.childForceExpandWidth = false;
+        layout.childForceExpandHeight = false;
+
+        var bandHeight = height * 0.44f;
+        var icon = CreateIcon(content, "Icon", null, bandHeight * 0.95f);
+
+        var label = CreateText(content, "Label", "Objeto", bandHeight * 0.5f, Color.white, bodyBoldFont,
+            TextAlignmentOptions.Left);
+        label.textWrappingMode = TextWrappingModes.NoWrap;
+        label.overflowMode = TextOverflowModes.Ellipsis;
+        label.gameObject.AddComponent<LayoutElement>().flexibleWidth = 1f;
+
+        var notification = holder.gameObject.AddComponent<ItemNotification>();
+        var so = new SerializedObject(notification);
+        so.FindProperty("bar").objectReferenceValue = bar;
+        so.FindProperty("group").objectReferenceValue = group;
+        so.FindProperty("icon").objectReferenceValue = icon;
+        so.FindProperty("label").objectReferenceValue = label;
+        so.FindProperty("shownX").floatValue = CornerMargin.x;
+        so.ApplyModifiedPropertiesWithoutUndo();
+    }
+
+    // ---------- Diálogo de la oveja ----------
+
+    /// <summary>
+    /// Cuadro de diálogo abajo al centro: retrato de la oveja, bocadillo con el texto y los botones
+    /// del menú principal debajo. Bloquea los clics al mundo mientras está abierto.
+    /// Devuelve el relleno del retrato para enlazarlo con el clima de SheepPortrait.
+    /// </summary>
+    static Graphic CreateDialog(Transform canvas)
+    {
+        var holder = CreateRect(canvas, "DialogBox");
+        Stretch(holder);
+        var root = CreateRect(holder, "Root");
+        Stretch(root);
+
+        var blockerImage = root.gameObject.AddComponent<Image>();
+        blockerImage.color = Color.clear;
+        var blocker = root.gameObject.AddComponent<Button>();
+        blocker.transition = Selectable.Transition.None;
+        blocker.navigation = new Navigation { mode = Navigation.Mode.None };
+
+        var bubbleHeight = DialogBubbleWidth * dialogBubble.rect.height / dialogBubble.rect.width;
+        var groupWidth = DialogPortraitSize + DialogBubbleWidth - DialogBubbleOverlap;
+        var groupHeight = bubbleHeight + DialogButtonGap + DialogButtonSize.y;
+
+        var group = CreateRect(root, "Group");
+        group.anchorMin = group.anchorMax = group.pivot = new Vector2(0.5f, 0f);
+        group.sizeDelta = new Vector2(groupWidth, groupHeight);
+        group.anchoredPosition = new Vector2(0f, DialogBottomMargin);
+        group.localScale = new Vector3(DialogScale, DialogScale, 1f);
+
+        // Retrato centrado en la altura del bocadillo; el relleno del clima va detrás del marco.
+        var portrait = CreateRect(group, "Portrait");
+        portrait.anchorMin = portrait.anchorMax = portrait.pivot = new Vector2(0f, 1f);
+        portrait.sizeDelta = Vector2.one * DialogPortraitSize;
+        portrait.anchoredPosition = new Vector2(0f, -(bubbleHeight - DialogPortraitSize) * 0.5f);
+
+        var fillRect = CreateRect(portrait, "Fill");
+        fillRect.anchorMin = fillRect.anchorMax = new Vector2(0.5f, 0.5f);
+        fillRect.sizeDelta = Vector2.one * DialogPortraitSize * 0.82f;
+        var fill = fillRect.gameObject.AddComponent<Image>();
+        fill.material = portraitMaterial;
+        fill.maskable = false;
+        fill.raycastTarget = false;
+
+        var portraitImageRect = CreateRect(portrait, "Image");
+        Stretch(portraitImageRect);
+        var portraitImage = portraitImageRect.gameObject.AddComponent<Image>();
+        portraitImage.sprite = dialogPortrait;
+        portraitImage.raycastTarget = false;
+
+        // Bocadillo a la derecha; la cola apunta al retrato.
+        var bubble = CreateRect(group, "Bubble");
+        bubble.anchorMin = bubble.anchorMax = bubble.pivot = new Vector2(1f, 1f);
+        bubble.sizeDelta = new Vector2(DialogBubbleWidth, bubbleHeight);
+        var bubbleImage = bubble.gameObject.AddComponent<Image>();
+        bubbleImage.sprite = dialogBubble;
+        bubbleImage.raycastTarget = false;
+
+        // Zona de pergamino del sprite (2172x724), sin el marco ni la cola.
+        var text = CreateRect(bubble, "Text");
+        SetAnchors(text, new Vector2(0.13f, 0.2f), new Vector2(0.89f, 0.8f));
+        var textLayout = text.gameObject.AddComponent<VerticalLayoutGroup>();
+        textLayout.spacing = 6f;
+        textLayout.childAlignment = TextAnchor.MiddleLeft;
+        textLayout.childControlWidth = true;
+        textLayout.childControlHeight = true;
+        textLayout.childForceExpandWidth = true;
+        textLayout.childForceExpandHeight = false;
+
+        var speaker = CreateText(text, "Speaker", "Oveja", 32f, InkSoftColor, titleFont, TextAlignmentOptions.Left);
+        var body = CreateText(text, "Body", "", 40f, InkColor, bodyFont, TextAlignmentOptions.TopLeft);
+        body.enableAutoSizing = true;
+        body.fontSizeMin = 28f;
+        body.fontSizeMax = 40f;
+        body.gameObject.AddComponent<LayoutElement>().flexibleHeight = 1f;
+
+        // Botones del menú principal, centrados bajo el pergamino del bocadillo.
+        var buttons = CreateRect(group, "Options");
+        buttons.anchorMin = new Vector2(1f - DialogBubbleWidth / groupWidth, 0f);
+        buttons.anchorMax = new Vector2(1f, 0f);
+        buttons.pivot = new Vector2(0.5f, 0f);
+        buttons.sizeDelta = new Vector2(0f, DialogButtonSize.y);
+        var buttonsLayout = buttons.gameObject.AddComponent<HorizontalLayoutGroup>();
+        buttonsLayout.spacing = 60f;
+        buttonsLayout.childAlignment = TextAnchor.MiddleCenter;
+        buttonsLayout.childControlWidth = true;
+        buttonsLayout.childControlHeight = true;
+        buttonsLayout.childForceExpandWidth = false;
+        buttonsLayout.childForceExpandHeight = false;
+
+        var optionButtons = new Button[2];
+        var optionLabels = new TMP_Text[2];
+        for (var i = 0; i < optionButtons.Length; i++)
+            (optionButtons[i], optionLabels[i]) = CreateMenuStyleButton(buttons, "Option" + (i + 1));
+
+        var dialog = holder.gameObject.AddComponent<DialogBox>();
+        var so = new SerializedObject(dialog);
+        so.FindProperty("root").objectReferenceValue = root.gameObject;
+        so.FindProperty("speakerText").objectReferenceValue = speaker;
+        so.FindProperty("bodyText").objectReferenceValue = body;
+        var buttonsProp = so.FindProperty("optionButtons");
+        var labelsProp = so.FindProperty("optionLabels");
+        buttonsProp.arraySize = labelsProp.arraySize = optionButtons.Length;
+        for (var i = 0; i < optionButtons.Length; i++)
+        {
+            buttonsProp.GetArrayElementAtIndex(i).objectReferenceValue = optionButtons[i];
+            labelsProp.GetArrayElementAtIndex(i).objectReferenceValue = optionLabels[i];
+        }
+        so.FindProperty("portrait").objectReferenceValue = portraitImage;
+        so.FindProperty("defaultPortrait").objectReferenceValue = dialogPortrait;
+        so.FindProperty("dismissArea").objectReferenceValue = blocker;
+        so.ApplyModifiedPropertiesWithoutUndo();
+        return fill;
+    }
+
+    /// <summary>Botón con los marcos inactivo/activo del menú principal (9-slice) y MenuButtonVisual.</summary>
+    static (Button, TMP_Text) CreateMenuStyleButton(Transform parent, string name)
+    {
+        var rect = CreateRect(parent, name);
+        var element = rect.gameObject.AddComponent<LayoutElement>();
+        element.minWidth = element.preferredWidth = DialogButtonSize.x;
+        element.minHeight = element.preferredHeight = DialogButtonSize.y;
+
+        var hitArea = rect.gameObject.AddComponent<Image>();
+        hitArea.color = Color.clear;
+        var button = rect.gameObject.AddComponent<Button>();
+        button.transition = Selectable.Transition.None;
+        button.targetGraphic = hitArea;
+
+        // Los bordes del 9-slice se escalan al alto del botón (el sprite mide 175 de alto).
+        var borderScale = MenuButtonSpriteHeight / DialogButtonSize.y;
+        var inactive = CreateSlicedFrame(rect, "InactiveFrame", menuButtonInactive, borderScale);
+        var active = CreateSlicedFrame(rect, "ActiveFrame", menuButtonActive, borderScale);
+        active.material = menuShineMaterial;
+
+        var label = CreateText(rect, "Label", "Opción", 44f, Color.white, bodyBoldFont);
+        Stretch(label.rectTransform);
+        label.rectTransform.offsetMin = new Vector2(40f, 0f);
+        label.rectTransform.offsetMax = new Vector2(-40f, 0f);
+        label.textWrappingMode = TextWrappingModes.NoWrap;
+        label.enableAutoSizing = true;
+        label.fontSizeMin = 28f;
+        label.fontSizeMax = 44f;
+
+        var visual = rect.gameObject.AddComponent<MenuButtonVisual>();
+        var so = new SerializedObject(visual);
+        so.FindProperty("inactiveFrame").objectReferenceValue = inactive;
+        so.FindProperty("activeFrame").objectReferenceValue = active;
+        so.FindProperty("label").objectReferenceValue = label;
+        so.ApplyModifiedPropertiesWithoutUndo();
+        return (button, label);
+    }
+
+    static Image CreateSlicedFrame(Transform parent, string name, Sprite sprite, float borderScale)
+    {
+        var rect = CreateRect(parent, name);
+        Stretch(rect);
+        var image = rect.gameObject.AddComponent<Image>();
+        image.sprite = sprite;
+        image.type = Image.Type.Sliced;
+        image.pixelsPerUnitMultiplier = borderScale;
+        image.raycastTarget = false;
+        return image;
     }
 
     // ---------- Retrato de la oveja ----------
@@ -291,7 +546,7 @@ static class PlayerHudBuilder
     /// Marco dorado con la cara de la oveja recortada en círculo sobre el relleno del clima.
     /// Orden: relleno → máscara con la cara → marco encima tapando los bordes.
     /// </summary>
-    static void CreateSheepPortrait(Transform canvas)
+    static SheepPortrait CreateSheepPortrait(Transform canvas)
     {
         var root = CreateRect(canvas, "SheepPortrait");
         root.anchorMin = root.anchorMax = root.pivot = Vector2.zero;
@@ -339,6 +594,7 @@ static class PlayerHudBuilder
         so.FindProperty("sly").objectReferenceValue = sheepSly;
         so.FindProperty("angry").objectReferenceValue = sheepAngry;
         so.ApplyModifiedPropertiesWithoutUndo();
+        return portrait;
     }
 
     // ---------- Encargos ----------

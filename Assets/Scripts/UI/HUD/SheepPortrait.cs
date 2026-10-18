@@ -15,6 +15,8 @@ public class SheepPortrait : MonoBehaviour
     [SerializeField] Image character;
     [Tooltip("Relleno con el material UI/Portrait Mood Fill.")]
     [SerializeField] Graphic fill;
+    [Tooltip("Otros rellenos que comparten el mismo clima (p. ej. el retrato del cuadro de diálogo).")]
+    [SerializeField] Graphic[] linkedFills;
 
     [Header("Caras")]
     [SerializeField] Sprite happy;
@@ -49,6 +51,9 @@ public class SheepPortrait : MonoBehaviour
         {
             fillMaterial = new Material(fill.material);
             fill.material = fillMaterial;
+            foreach (var linked in linkedFills)
+                if (linked != null)
+                    linked.material = fillMaterial;
         }
         ApplyMood(Mood.Happy, punch: false);
         ApplyDarkness();
