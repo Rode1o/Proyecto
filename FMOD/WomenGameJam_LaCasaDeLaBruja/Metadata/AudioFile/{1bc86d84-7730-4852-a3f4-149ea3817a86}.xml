@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.03.00">
-	<object class="AudioFile" id="{38600a75-6f9a-41db-9fa1-72ac1d390d09}">
+	<object class="AudioFile" id="{1bc86d84-7730-4852-a3f4-149ea3817a86}">
 		<property name="assetPath">
-			<value>AMB/amb_bed_birds_lp.wav</value>
+			<value>AMB/amb_bed_scary_lp_01.wav</value>
 		</property>
 		<property name="isStreaming">
 			<value>true</value>
@@ -14,7 +14,7 @@
 			<value>2</value>
 		</property>
 		<property name="length">
-			<value>92.309342403628122</value>
+			<value>42.500793650793653</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{5f43a3e3-8f36-4de1-929f-83ce4e5f6d82}</destination>
