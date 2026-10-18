@@ -13,7 +13,7 @@ using UnityEngine.Video;
 public class VideoBackground : MonoBehaviour
 {
     [Tooltip("Ruta del vídeo dentro de StreamingAssets.")]
-    [SerializeField] string videoFile = "Video/JardinEncantadoDia.mp4";
+    [SerializeField] string videoFile = "Video/IslaFlotante.mp4";
     [SerializeField] Camera targetCamera;
     [Tooltip("Imagen que se ve mientras carga el vídeo o si falla.")]
     [SerializeField] Graphic poster;

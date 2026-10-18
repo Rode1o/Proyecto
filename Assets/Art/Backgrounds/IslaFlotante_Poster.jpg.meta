@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d0d7e99433d5e564999ec0c98cd95c54
+guid: 410b5feabf1e82b48b36162bd8d7d2a6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6968395684371696622
-    second: JardinEncantadoDia_Poster_0
+      213: 6924467291206717797
+    second: IslaFlotante_Poster_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -115,13 +115,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: JardinEncantadoDia_Poster_0
+      name: IslaFlotante_Poster_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1280
-        height: 720
+        width: 1920
+        height: 1080
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,8 +130,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 214f8a29b094b4f90800000000000000
-      internalID: -6968395684371696622
+      spriteID: 561103f5056a81060800000000000000
+      internalID: 6924467291206717797
       vertices: []
       indices: 
       edges: []

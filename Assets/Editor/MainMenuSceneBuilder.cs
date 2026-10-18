@@ -21,8 +21,8 @@ static class MainMenuSceneBuilder
     const string ArtPath = "Assets/Art/UI/MainMenu/";
     const string IconPath = "Assets/Art/UI/Icons/";
     // Primer fotograma del vídeo: se ve mientras carga (o si el vídeo falla).
-    const string BackgroundPath = "Assets/Art/Backgrounds/JardinEncantadoDia_Poster.jpg";
-    const string BackgroundVideo = "Video/JardinEncantadoDia.mp4";
+    const string BackgroundPath = "Assets/Art/Backgrounds/IslaFlotante_Poster.jpg";
+    const string BackgroundVideo = "Video/IslaFlotante.mp4";
     const string BodyFontFolder = "Assets/Art/Fonts/Alegreya/";
     const string TitleFontFolder = "Assets/Art/Fonts/Cinzel/";
     const string ShineShaderName = "UI/Menu Button Shine";
