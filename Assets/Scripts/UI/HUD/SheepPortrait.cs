@@ -24,7 +24,9 @@ public class SheepPortrait : MonoBehaviour
     [SerializeField] Sprite angry;
 
     [Header("Clima")]
-    [Tooltip("Rechazos necesarios para llegar al relleno más oscuro.")]
+    [Tooltip("Vacío = el WeatherController de la escena. Si hay uno, el retrato sigue su tormenta.")]
+    [SerializeField] WeatherController weather;
+    [Tooltip("Sin WeatherController: rechazos necesarios para llegar al relleno más oscuro.")]
     [SerializeField, Min(1)] int rejectionsToDark = 3;
     [Tooltip("Segundos que tarda el relleno en pasar a su nuevo tono.")]
     [SerializeField] float darkenDuration = 1.5f;
@@ -65,6 +67,8 @@ public class SheepPortrait : MonoBehaviour
             sheep = FindAnyObjectByType<SheepEnemy>();
         if (sheep != null)
             sheep.Rejected += OnRejected;
+        if (weather == null)
+            weather = FindAnyObjectByType<WeatherController>();
     }
 
     void OnDestroy()
@@ -80,12 +84,13 @@ public class SheepPortrait : MonoBehaviour
         if (sheep != null)
             SetMood(MoodFor(sheep.CurrentState));
 
-        var target = Mathf.Clamp01((float)rejections / rejectionsToDark);
+        // Con clima en la escena, el relleno va a la par que el cielo; sin él, cuenta sus rechazos.
+        var target = weather != null ? weather.Storm : Mathf.Clamp01((float)rejections / rejectionsToDark);
         if (!Mathf.Approximately(darkness, target))
         {
-            darkness = darkenDuration > 0f
-                ? Mathf.MoveTowards(darkness, target, Time.deltaTime / darkenDuration)
-                : target;
+            darkness = weather != null || darkenDuration <= 0f
+                ? target
+                : Mathf.MoveTowards(darkness, target, Time.deltaTime / darkenDuration);
             ApplyDarkness();
         }
 
