@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.03.00">
-	<object class="AudioFile" id="{af9a704a-8a4a-4103-85d3-86166bdbc29c}">
+	<object class="AudioFile" id="{15ab2db8-99de-42be-985d-63a608f9da2e}">
 		<property name="assetPath">
-			<value>AMB/amb_bed_birds_lp.wav</value>
+			<value>EXPLORACION_INICIAL_MELODIA.wav</value>
 		</property>
 		<property name="isStreaming">
 			<value>true</value>
 		</property>
 		<property name="frequencyInKHz">
-			<value>44.0999985</value>
+			<value>48</value>
 		</property>
 		<property name="channelCount">
 			<value>2</value>
 		</property>
 		<property name="length">
-			<value>92.309342403628122</value>
+			<value>34.909083333333335</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{5f43a3e3-8f36-4de1-929f-83ce4e5f6d82}</destination>

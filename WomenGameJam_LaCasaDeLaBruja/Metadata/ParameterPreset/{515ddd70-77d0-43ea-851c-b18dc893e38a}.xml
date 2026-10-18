@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="ParameterPreset" id="{515ddd70-77d0-43ea-851c-b18dc893e38a}">
+		<property name="name">
+			<value>PUZZLES</value>
+		</property>
+		<relationship name="folder">
+			<destination>{4dda4017-d700-44dc-8792-2b883a58d73c}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{ebcb7564-a653-4434-bde4-d92b0acf2b7e}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{ebcb7564-a653-4434-bde4-d92b0acf2b7e}">
+		<property name="parameterType">
+			<value>2</value>
+		</property>
+		<property name="maximum">
+			<value>3</value>
+		</property>
+		<property name="enumerationLabels">
+			<value>ENTRADA</value>
+			<value>PUZZLE 1</value>
+			<value>PUZZLE 2</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
