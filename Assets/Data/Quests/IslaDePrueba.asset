@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 478789f33aa0ff347b2317e470efa5b8, type: 3}
+  m_Name: IslaDePrueba
+  m_EditorClassIdentifier: Assembly-CSharp::IslandQuests
+  islandName: Isla de prueba
+  quests:
+  - id: recoger_hojas
+    title: Recoger hojas
+    description: "El viento ha esparcido las hojas m\xE1gicas por la isla. Rec\xF3gelas antes de que se las lleve."
+    icon: {fileID: 21300000, guid: e3deebc2a16a8d347aab9e652404bc13, type: 3}
+    goal: 5
+    collectable: {fileID: 11400000, guid: 41fc69ffb55d3f645940e7a0d2e5dcfc, type: 2}
+    mechanismId: 
+  - id: reparar_cerca
+    title: Reparar la cerca
+    description: "La cerca del huerto est\xE1 rota y las ovejas se escapan. Busca la forma de arreglarla."
+    icon: {fileID: 21300000, guid: 83393193fe6958547b75507bbd9cf915, type: 3}
+    goal: 1
+    collectable: {fileID: 0}
+    mechanismId: 
+  - id: regar_flores
+    title: Regar las flores
+    description: "Las flores del jard\xEDn llevan d\xEDas sin agua. Encuentra la regadera."
+    icon: {fileID: 21300000, guid: c0860619664ca2346aff5e4bac91a2b3, type: 3}
+    goal: 1
+    collectable: {fileID: 0}
+    mechanismId: 
