@@ -664,6 +664,20 @@ MonoBehaviour:
   collectableId: hoja_a_01
   definition: {fileID: 11400000, guid: 41fc69ffb55d3f645940e7a0d2e5dcfc, type: 2}
   vanishDuration: 0.2
+  sonidoConfirmacion:
+    Guid:
+      Data1: -1397870375
+      Data2: 1269645759
+      Data3: 1234716572
+      Data4: -660586033
+    Path: event:/HUD/Play_hud_action_confirmation
+  sonidoColision:
+    Guid:
+      Data1: 1116962318
+      Data2: 1173351961
+      Data3: -1367851367
+      Data4: -1512664032
+    Path: event:/SFX/play_sfx_collectible_leaf
 --- !u!114 &250161243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1421,7 +1435,7 @@ MonoBehaviour:
   smoothTime: 0.08
   collisionMask:
     serializedVersion: 2
-    m_Bits: 4294967259
+    m_Bits: 83
   collisionRadius: 0.3
   minDistance: 2
   returnSpeed: 10
@@ -3024,6 +3038,20 @@ MonoBehaviour:
   collectableId: hoja_b_01
   definition: {fileID: 11400000, guid: 41fc69ffb55d3f645940e7a0d2e5dcfc, type: 2}
   vanishDuration: 0.2
+  sonidoConfirmacion:
+    Guid:
+      Data1: -1397870375
+      Data2: 1269645759
+      Data3: 1234716572
+      Data4: -660586033
+    Path: event:/HUD/Play_hud_action_confirmation
+  sonidoColision:
+    Guid:
+      Data1: 1116962318
+      Data2: 1173351961
+      Data3: -1367851367
+      Data4: -1512664032
+    Path: event:/SFX/play_sfx_collectible_leaf
 --- !u!114 &669458833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4017,6 +4045,57 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1110493716}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1016412836
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1016412838}
+  - component: {fileID: 1016412837}
+  m_Layer: 0
+  m_Name: AmbientManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1016412837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016412836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a0c16edc5fca48e7952fcad6ca38f99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AmbienteManager
+  eventoAmbiente:
+    Guid:
+      Data1: 167100998
+      Data2: 1226334198
+      Data3: 1085167018
+      Data4: -342832460
+    Path: event:/AMB/Play_amb
+--- !u!4 &1016412838
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016412836}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 942.26697, y: 152.84431, z: -59.24177}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1027683120
@@ -5347,6 +5426,20 @@ MonoBehaviour:
   collectableId: tijeras_a_01
   definition: {fileID: 11400000, guid: 8f08da520257b64498ad62c21a874cce, type: 2}
   vanishDuration: 0.2
+  sonidoConfirmacion:
+    Guid:
+      Data1: -1397870375
+      Data2: 1269645759
+      Data3: 1234716572
+      Data4: -660586033
+    Path: event:/HUD/Play_hud_action_confirmation
+  sonidoColision:
+    Guid:
+      Data1: 94408722
+      Data2: 1238520449
+      Data3: 40332168
+      Data4: 892841520
+    Path: event:/SFX/Play_sfx_scissors_grab
 --- !u!114 &1537825771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7083,6 +7176,20 @@ MonoBehaviour:
   collectableId: hoja_a_02
   definition: {fileID: 11400000, guid: 41fc69ffb55d3f645940e7a0d2e5dcfc, type: 2}
   vanishDuration: 0.2
+  sonidoConfirmacion:
+    Guid:
+      Data1: -1397870375
+      Data2: 1269645759
+      Data3: 1234716572
+      Data4: -660586033
+    Path: event:/HUD/Play_hud_action_confirmation
+  sonidoColision:
+    Guid:
+      Data1: 1116962318
+      Data2: 1173351961
+      Data3: -1367851367
+      Data4: -1512664032
+    Path: event:/SFX/play_sfx_collectible_leaf
 --- !u!114 &2033091509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7357,3 +7464,4 @@ SceneRoots:
   - {fileID: 876255801}
   - {fileID: 1274868818}
   - {fileID: 705968950}
+  - {fileID: 1016412838}

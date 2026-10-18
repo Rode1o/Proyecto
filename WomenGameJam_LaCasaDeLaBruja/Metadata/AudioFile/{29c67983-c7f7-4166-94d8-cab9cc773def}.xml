@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.03.00">
-	<object class="AudioFile" id="{682303c3-53ba-4eb6-bfa6-c9b93c5333ea}">
+	<object class="AudioFile" id="{29c67983-c7f7-4166-94d8-cab9cc773def}">
 		<property name="assetPath">
-			<value>sfx_collectible_leaf_03.wav</value>
+			<value>AMB/amb_bed_windLight_lp.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
 		</property>
 		<property name="frequencyInKHz">
-			<value>48</value>
+			<value>44.0999985</value>
 		</property>
 		<property name="channelCount">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<property name="length">
-			<value>0.5473541666666667</value>
+			<value>92.309342403628122</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{5f43a3e3-8f36-4de1-929f-83ce4e5f6d82}</destination>

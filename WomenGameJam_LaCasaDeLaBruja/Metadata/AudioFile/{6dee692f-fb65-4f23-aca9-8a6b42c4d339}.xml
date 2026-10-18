@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.03.00">
-	<object class="AudioFile" id="{e0d6b855-f664-42fc-aa66-d1aef8197b87}">
+	<object class="AudioFile" id="{6dee692f-fb65-4f23-aca9-8a6b42c4d339}">
 		<property name="assetPath">
-			<value>sfx_collectible_leaf_02.wav</value>
+			<value>AMB/amb_bed_leaves_lp.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
 		</property>
 		<property name="frequencyInKHz">
-			<value>48</value>
+			<value>44.0999985</value>
 		</property>
 		<property name="channelCount">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<property name="length">
-			<value>0.62960416666666663</value>
+			<value>92.309342403628122</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{5f43a3e3-8f36-4de1-929f-83ce4e5f6d82}</destination>
