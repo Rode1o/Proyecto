@@ -1,0 +1,771 @@
+fileFormatVersion: 2
+guid: cfe76e562300485d85c5ede9168469da
+ModelImporter:
+  serializedVersion: 24600
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: conejo_hueso_openPBR_shader2
+    second: {fileID: 2100000, guid: f7ddd8fac84c7024ba19d74a0c6f23f1, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+    searchTexturesGlobally: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Conejo_Idle_FBX
+      takeName: idle conejito
+      internalID: 7400000
+      firstFrame: 1
+      lastFrame: 36
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 1
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000u
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    preBakeConvexCollisionMesh: 0
+    preBakeTriangleCollisionMesh: 0
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
+    importUVs: -1
+    importVertexColors: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+    calculateBlendshapeNormalsDeltaFromImportedNormals: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human:
+    - boneName: conejo_hueso:QuickRigCharacter_Hips
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: conejo_hueso:QuickRigCharacter_LeftUpLeg
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: conejo_hueso:QuickRigCharacter_LeftLeg
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: conejo_hueso:QuickRigCharacter_LeftFoot
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: conejo_hueso:QuickRigCharacter_LeftToeBase
+      humanName: LeftToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: conejo_hueso:QuickRigCharacter_RightUpLeg
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: conejo_hueso:QuickRigCharacter_RightLeg
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: conejo_hueso:QuickRigCharacter_RightFoot
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: conejo_hueso:QuickRigCharacter_RightToeBase
+      humanName: RightToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: conejo_hueso:QuickRigCharacter_Spine
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: conejo_hueso:QuickRigCharacter_Spine1
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: conejo_hueso:QuickRigCharacter_Spine2
+      humanName: UpperChest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: conejo_hueso:QuickRigCharacter_LeftShoulder
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: conejo_hueso:QuickRigCharacter_LeftArm
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: conejo_hueso:QuickRigCharacter_LeftForeArm
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: conejo_hueso:QuickRigCharacter_LeftHand
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: conejo_hueso:QuickRigCharacter_RightShoulder
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: conejo_hueso:QuickRigCharacter_RightArm
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: conejo_hueso:QuickRigCharacter_RightForeArm
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: conejo_hueso:QuickRigCharacter_RightHand
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: conejo_hueso:QuickRigCharacter_Neck
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: conejo_hueso:QuickRigCharacter_Head
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: caminata-conejo
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:pSphere3
+      parentName: 
+      position: {x: 0.0000000743126, y: 0.9226873, z: 0.00000006260394}
+      rotation: {x: 0.000000016952447, y: -0.063655354, z: 0.000000265776, w: 0.99797195}
+      scale: {x: 8.154743, y: 8.854582, z: 8.154743}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_Reference
+      parentName: 
+      position: {x: -0.0017950153, y: -0.0045249024, z: -0.00057258125}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_ChestEndEffector
+      parentName: 
+      position: {x: -0.00616842, y: 0.23039696, z: 0.007709127}
+      rotation: {x: -0.045224603, y: -0.06147653, z: 0.013770102, w: 0.99698836}
+      scale: {x: 2.5252502, y: 2.5252502, z: 2.5252502}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_ChestOriginEffector
+      parentName: 
+      position: {x: -0.000035108624, y: 0.15021041, z: 0.018973814}
+      rotation: {x: 0.02028816, y: 0.035449784, z: 0.0011690679, w: 0.9991648}
+      scale: {x: 20.245293, y: 20.245293, z: 20.245293}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_HeadEffector
+      parentName: 
+      position: {x: -0.004758842, y: 0.2994756, z: 0.00079991337}
+      rotation: {x: -0.050672434, y: -0.030912926, z: 0.06990024, w: 0.9957865}
+      scale: {x: 4.081947, y: 4.081947, z: 4.081947}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_Hips
+      parentName: 
+      position: {x: -0.000020909607, y: 0.12150524, z: 0.017643517}
+      rotation: {x: 0.020289343, y: 0.03551491, z: 0.0011705126, w: 0.9991625}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_LeftUpLeg
+      parentName: 
+      position: {x: -0.046444554, y: -0.019834137, z: -0.00003783226}
+      rotation: {x: -0.38421738, y: 0.039787903, z: 0.04031722, w: 0.92150337}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_LeftLeg
+      parentName: 
+      position: {x: -0, y: -0.036337927, z: 0}
+      rotation: {x: 0.22218347, y: -0.054299608, z: -0.012667262, w: 0.9734093}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_LeftFoot
+      parentName: 
+      position: {x: 8.881784e-18, y: -0.050868075, z: -2.220446e-18}
+      rotation: {x: 0.055955812, y: -0.03702761, z: 0.014808559, w: 0.99763656}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_LeftToeBase
+      parentName: 
+      position: {x: -0.0000000047683715, y: -0.009113471, z: 0.0038752889}
+      rotation: {x: 1.0911386e-13, y: -0.0000002901828, z: -0.00000037601765, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_RightUpLeg
+      parentName: 
+      position: {x: 0.04179241, y: -0.020192718, z: -0.00003783226}
+      rotation: {x: 0.05956629, y: -0.0058983713, z: -0.016027221, w: 0.9980783}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_RightLeg
+      parentName: 
+      position: {x: 0.0000000023841857, y: -0.03595775, z: 0.0000003516674}
+      rotation: {x: 0.24177943, y: -0.040206682, z: -0.010752785, w: 0.96943825}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_RightFoot
+      parentName: 
+      position: {x: -0.0000000023841857, y: -0.05034433, z: -2.220446e-18}
+      rotation: {x: 0.55125856, y: -0.02300952, z: -0.009591407, w: 0.83396196}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_RightToeBase
+      parentName: 
+      position: {x: 0.000000641346, y: -0.009113471, z: 0.0076552164}
+      rotation: {x: -8.703465e-14, y: -0.00000088486246, z: 0.00000009835953, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_Spine
+      parentName: 
+      position: {x: -0, y: 0.028735531, z: 0.00016338348}
+      rotation: {x: -0.0000012523923, y: -0.00006518256, z: -0.00000016664987, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_Spine1
+      parentName: 
+      position: {x: -0, y: 0.029973783, z: -0.0012029255}
+      rotation: {x: -0.03307579, y: -0.048432436, z: 0.004850749, w: 0.99826694}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_Spine2
+      parentName: 
+      position: {x: -0, y: 0.03637323, z: -0.0012029242}
+      rotation: {x: -0.03288795, y: -0.04825653, z: 0.007404313, w: 0.998266}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_LeftShoulder
+      parentName: 
+      position: {x: 0.034018185, y: 0.015330906, z: -0.007133163}
+      rotation: {x: 0.0060945447, y: -0.2355457, z: -0.2526448, w: 0.9384305}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_LeftArm
+      parentName: 
+      position: {x: 0.046533115, y: -0.004938774, z: 2.220446e-18}
+      rotation: {x: -0.19207193, y: 0.47186974, z: 0.8072146, w: 0.29808056}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_LeftForeArm
+      parentName: 
+      position: {x: -0.047506627, y: 0, z: 0}
+      rotation: {x: -0.002181047, y: 0.0016666483, z: 0.000014053946, w: 0.99999624}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_LeftHand
+      parentName: 
+      position: {x: -0.030235128, y: 0, z: 0}
+      rotation: {x: 0.00007480489, y: -0.000025171847, z: -0.0554034, w: 0.99846405}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_Neck
+      parentName: 
+      position: {x: -0, y: 0.026822375, z: -0.00551916}
+      rotation: {x: -0.0012090694, y: 0.013940017, z: 0.028867304, w: 0.9994853}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_Head
+      parentName: 
+      position: {x: -0, y: 0.05741764, z: -0.0024133318}
+      rotation: {x: -0.00040469202, y: 0.013985358, z: 0.028868452, w: 0.9994853}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_RightShoulder
+      parentName: 
+      position: {x: -0.046464518, y: 0.014194221, z: -0.007133163}
+      rotation: {x: -0.0032236357, y: -0.39315906, z: 0.27751672, w: 0.87658435}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_RightArm
+      parentName: 
+      position: {x: -0.040564947, y: -0.0032965469, z: 0}
+      rotation: {x: 0.02470935, y: 0.75972825, z: 0.6113124, w: -0.22022629}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_RightForeArm
+      parentName: 
+      position: {x: 0.041059125, y: 0, z: 0}
+      rotation: {x: -0.002012001, y: 0.0000024876804, z: -0.00047683282, w: 0.99999785}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_RightHand
+      parentName: 
+      position: {x: 0.0405491, y: 3.5527136e-17, z: 0}
+      rotation: {x: 0.0000008971197, y: 0.00013234813, z: 0.00000082094823, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_HipsEffector
+      parentName: 
+      position: {x: -0.002325847, y: 0.10150108, z: 0.016957682}
+      rotation: {x: 0.020289343, y: 0.03551491, z: 0.0011705126, w: 0.9991625}
+      scale: {x: 2.7753062, y: 2.7753062, z: 2.7753062}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_LeftAnkleEffector
+      parentName: 
+      position: {x: -0.035617195, y: 0.026544789, z: 0.058868535}
+      rotation: {x: -0.088293426, y: -0.0051008617, z: 0.06494697, w: 0.9939619}
+      scale: {x: 1.6268673, y: 1.6268673, z: 1.6268673}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_LeftElbowEffector
+      parentName: 
+      position: {x: 0.06828161, y: 0.18617885, z: 0.080195986}
+      rotation: {x: -0.32293957, y: 0.40348986, z: 0.6123204, w: 0.59830564}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_LeftHipEffector
+      parentName: 
+      position: {x: -0.046333034, y: 0.10151344, z: 0.02009397}
+      rotation: {x: -0.36381364, y: 0.071213946, z: 0.0558148, w: 0.92706686}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_LeftKneeEffector
+      parentName: 
+      position: {x: -0.040690105, y: 0.075022966, z: 0.044319138}
+      rotation: {x: -0.146032, y: 0.026773557, z: 0.046519622, w: 0.9878228}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_LeftShoulderEffector
+      parentName: 
+      position: {x: 0.064710476, y: 0.20874687, z: 0.0385449}
+      rotation: {x: -0.3206186, y: 0.40382206, z: 0.6119679, w: 0.5996888}
+      scale: {x: 1.6023797, y: 1.6023797, z: 1.6023797}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_LeftWristEffector
+      parentName: 
+      position: {x: 0.07056377, y: 0.17190465, z: 0.10675163}
+      rotation: {x: -0.3447381, y: 0.38500887, z: 0.57820976, w: 0.6313456}
+      scale: {x: 2.0359273, y: 2.9092617, z: 2.9092617}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_RightAnkleEffector
+      parentName: 
+      position: {x: 0.03714593, y: 0.025897427, z: -0.022084853}
+      rotation: {x: 0.78576386, y: -0.05147627, z: -0.039929304, w: 0.6150862}
+      scale: {x: 1.645402, y: 1.645402, z: 1.645402}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_RightElbowEffector
+      parentName: 
+      position: {x: -0.085411415, y: 0.1717031, z: -0.037564214}
+      rotation: {x: -0.42047495, y: 0.043690678, z: -0.46503007, w: 0.7778426}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_RightHipEffector
+      parentName: 
+      position: {x: 0.04168134, y: 0.10148873, z: 0.013821391}
+      rotation: {x: 0.079204455, y: 0.029948132, z: -0.017080698, w: 0.9962621}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_RightKneeEffector
+      parentName: 
+      position: {x: 0.040287018, y: 0.066002965, z: 0.008184332}
+      rotation: {x: 0.3166507, y: -0.014301621, z: -0.037696663, w: 0.94768494}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_RightShoulderEffector
+      parentName: 
+      position: {x: -0.062240895, y: 0.20290722, z: -0.024324793}
+      rotation: {x: -0.41888934, y: 0.042953525, z: -0.46474501, w: 0.7789087}
+      scale: {x: 1.6023797, y: 1.6023797, z: 1.6023797}
+    - name: conejo_hueso:QuickRigCharacter_Ctrl_RightWristEffector
+      parentName: 
+      position: {x: -0.10826796, y: 0.14087836, z: -0.05066549}
+      rotation: {x: -0.42041266, y: 0.043793578, z: -0.4650851, w: 0.7778375}
+      scale: {x: 2.9092617, y: 2.9092617, z: 2.9092617}
+    - name: conejo_hueso:QuickRigCharacter_Guides
+      parentName: 
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:Head
+      parentName: 
+      position: {x: -0.0017950153, y: 0.3024031, z: 0.0062480383}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:Hips
+      parentName: 
+      position: {x: -0.0017950153, y: 0.123080514, z: 0.016422996}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:LeftArm
+      parentName: 
+      position: {x: 0.07875629, y: 0.2285552, z: 0.007047367}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:LeftFoot
+      parentName: 
+      position: {x: -0.03590021, y: 0.017643578, z: 0.008838355}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:LeftForeArm
+      parentName: 
+      position: {x: 0.12531675, y: 0.22404021, z: 0.015330981}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:LeftHand
+      parentName: 
+      position: {x: 0.15466939, y: 0.21679004, z: 0.015190014}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:LeftLeg
+      parentName: 
+      position: {x: -0.04573986, y: 0.06699472, z: 0.01626851}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:LeftShoulder
+      parentName: 
+      position: {x: 0.032223172, y: 0.23349397, z: 0.007047367}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:LeftToeBase
+      parentName: 
+      position: {x: -0.034710154, y: 0.008530108, z: 0.0051503167}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:LeftUpLeg
+      parentName: 
+      position: {x: -0.04823957, y: 0.10324638, z: 0.016385164}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:Neck
+      parentName: 
+      position: {x: -0.0017950153, y: 0.24498545, z: 0.00866137}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:Reference
+      parentName: 
+      position: {x: -0.0017950153, y: 0.0015651511, z: -0.00057258125}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:RightArm
+      parentName: 
+      position: {x: -0.08882448, y: 0.22906074, z: 0.007047367}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:RightFoot
+      parentName: 
+      position: {x: 0.03231018, y: 0.017643578, z: 0.017750924}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:RightForeArm
+      parentName: 
+      position: {x: -0.12872471, y: 0.22404021, z: 0.015330981}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:RightHand
+      parentName: 
+      position: {x: -0.16862012, y: 0.21679004, z: 0.015190014}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:RightLeg
+      parentName: 
+      position: {x: 0.04214983, y: 0.06699472, z: 0.01626851}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:RightShoulder
+      parentName: 
+      position: {x: -0.048259534, y: 0.2323573, z: 0.007047367}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:RightToeBase
+      parentName: 
+      position: {x: 0.031120123, y: 0.008530108, z: 0.010188775}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:RightUpLeg
+      parentName: 
+      position: {x: 0.03999739, y: 0.1028878, z: 0.016385164}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:Spine
+      parentName: 
+      position: {x: -0.0017950153, y: 0.15181606, z: 0.01658638}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:Spine1
+      parentName: 
+      position: {x: -0.0017950153, y: 0.18178983, z: 0.015383454}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:Spine2
+      parentName: 
+      position: {x: -0.0017950153, y: 0.21816307, z: 0.01418053}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Reference
+      parentName: 
+      position: {x: -0.0017950153, y: 0.0015651511, z: -0.00057258125}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Hips
+      parentName: 
+      position: {x: -0.000020928084, y: 0.11541516, z: 0.017643515}
+      rotation: {x: 0.49389103, y: -0.46969163, z: -0.5283395, w: 0.50627935}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_LeftUpLeg
+      parentName: 
+      position: {x: 0.019834042, y: 0.00007493952, z: 0.046444554}
+      rotation: {x: 0.040205516, y: 0.03990274, z: 0.9204011, w: -0.3868504}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_LeftLeg
+      parentName: 
+      position: {x: -0.036337934, y: -0.0000016356191, z: 0.00000040019967}
+      rotation: {x: -0.0542995, y: 0.012673732, z: -0.22220153, w: 0.9734051}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_LeftFoot
+      parentName: 
+      position: {x: -0.050868057, y: -0.00000032890392, z: -0.000000042049837}
+      rotation: {x: -0.039239254, y: -0.007121378, z: 0.14438096, w: 0.9887183}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_LeftToeBase
+      parentName: 
+      position: {x: -0.00990319, y: 9.280529e-10, z: 0.000000004384914}
+      rotation: {x: 0, y: 0.00000056930566, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_RightUpLeg
+      parentName: 
+      position: {x: 0.020192597, y: 0.00007697848, z: -0.041792415}
+      rotation: {x: 0.0059431684, y: -0.016010394, z: -0.05673408, w: 0.9982433}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_RightLeg
+      parentName: 
+      position: {x: 0.035957765, y: 0.0000014863641, z: 0.000000037957726}
+      rotation: {x: 0.040207233, y: -0.010752704, z: -0.24177577, w: 0.96943915}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_RightFoot
+      parentName: 
+      position: {x: 0.05034432, y: 0.00000027511135, z: -0.000000005883534}
+      rotation: {x: 0.018343378, y: -0.016860748, z: -0.2325264, w: 0.9722709}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_RightToeBase
+      parentName: 
+      position: {x: 0.011901997, y: -0.0000000044040696, z: 0.0000000022991122}
+      rotation: {x: 0.000026163998, y: -0.00000040165, z: 1.0508769e-11, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Spine
+      parentName: 
+      position: {x: -0.028736016, y: -0.00000001607838, z: -0.0000000046725592}
+      rotation: {x: 0.000065179025, y: -0.0000014431464, z: 0.022897419, w: 0.99973786}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Spine1
+      parentName: 
+      position: {x: -0.029997906, y: -0.0000000016481863, z: -3.2955036e-10}
+      rotation: {x: 0.048577413, y: 0.0030759317, z: 0.029555986, w: 0.9983773}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Spine2
+      parentName: 
+      position: {x: -0.03639311, y: -0.0000000012108191, z: 0.000000003352351}
+      rotation: {x: 0.04879269, y: 0.0016718669, z: 0.11745764, w: 0.99187714}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_LeftShoulder
+      parentName: 
+      position: {x: -0.016453963, y: -0.003896924, z: -0.03401817}
+      rotation: {x: 0.2509591, y: 0.46307296, z: 0.77819014, w: -0.34205714}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_LeftArm
+      parentName: 
+      position: {x: -0.04679444, y: -0.000000010035911, z: 0.000000010257202}
+      rotation: {x: 0.9071455, y: -0.02705701, z: -0.33358556, w: 0.25509933}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_LeftForeArm
+      parentName: 
+      position: {x: -0.047506623, y: -0.00000074938566, z: 0.0000009257922}
+      rotation: {x: -0.0021881976, y: 0.000023749204, z: -0.0016599664, w: 0.99999624}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_LeftHand
+      parentName: 
+      position: {x: -0.030235112, y: -0.00000006415351, z: -0.0000000064126917}
+      rotation: {x: 0.0000746963, y: -0.055403378, z: 0.000026269929, w: 0.99846405}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Neck
+      parentName: 
+      position: {x: -0.027384153, y: -0.000000014542073, z: 0.000000006187049}
+      rotation: {x: -0.010309075, y: 0.030354023, z: -0.07913054, w: 0.9963487}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_Head
+      parentName: 
+      position: {x: -0.057468653, y: 0.0000000055117755, z: 0.0000000030920009}
+      rotation: {x: -0.012760731, y: 0.029430421, z: 0.00040471167, w: 0.9994853}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_RightShoulder
+      parentName: 
+      position: {x: -0.015340584, y: -0.00412602, z: 0.0464645}
+      rotation: {x: 0.7436955, y: -0.5407853, z: 0.049891867, w: 0.38984507}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_RightArm
+      parentName: 
+      position: {x: 0.040698666, y: 0.0000000033076522, z: -0.000000001250642}
+      rotation: {x: 0.9742764, y: -0.09884197, z: -0.17731293, w: -0.097856045}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_RightForeArm
+      parentName: 
+      position: {x: 0.04105913, y: 0.00000021308847, z: -0.0000006407029}
+      rotation: {x: -0.0020276671, y: 0.00048454537, z: 0.00000281676, w: 0.99999785}
+      scale: {x: 1, y: 1, z: 1}
+    - name: conejo_hueso:QuickRigCharacter_RightHand
+      parentName: 
+      position: {x: 0.04054911, y: 0.00000009101024, z: -0.000000022047127}
+      rotation: {x: 0.0000008686473, y: -0.00000070549436, z: 0.00013332763, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: imagePlane1
+      parentName: 
+      position: {x: 0.24941489, y: -0.2509652, z: 0.36767432}
+      rotation: {x: 0, y: 0.705782, z: -0, w: 0.7084291}
+      scale: {x: 27.017021, y: 27.017021, z: 27.017021}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 3
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
