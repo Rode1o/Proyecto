@@ -1,4 +1,5 @@
 using System;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -15,6 +16,8 @@ public abstract class PuzzleMechanism : MonoBehaviour
     [SerializeField] string mechanismId;
     [Tooltip("Se invoca una vez al resolver el puzle.")]
     [SerializeField] UnityEvent onSolved;
+    [Tooltip("Opcional: suena al resolver el puzle.")]
+    [SerializeField] EventReference solvedSound;
 
     public event Action<PuzzleMechanism> Solved;
 
@@ -78,6 +81,8 @@ public abstract class PuzzleMechanism : MonoBehaviour
 
         IsSolved = true;
         Debug.Log($"Puzle resuelto: {name}", this);
+        if (!solvedSound.IsNull)
+            RuntimeManager.PlayOneShot(solvedSound);
         Solved?.Invoke(this);
         onSolved.Invoke();
     }

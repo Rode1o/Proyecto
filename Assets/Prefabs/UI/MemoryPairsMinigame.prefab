@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 265762178683633231}
   - component: {fileID: 3718710153909402774}
   - component: {fileID: 3508521701089053754}
+  - component: {fileID: 2762752749102189049}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -247,6 +248,37 @@ MonoBehaviour:
   activeScale: 1.04
   pressedScale: 0.97
   transitionDuration: 0.12
+--- !u!114 &2762752749102189049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 170871365305299501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1404082868
+      Data2: 1204757653
+      Data3: -677358685
+      Data4: -1639573391
+    Path: event:/UI/Play_ui_button_hover
+  Event: 
+  EventPlayTrigger: 17
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: -1
+  OverrideMaxDistance: -1
 --- !u!1 &404775818880396933
 GameObject:
   m_ObjectHideFlags: 0
@@ -892,6 +924,7 @@ GameObject:
   - component: {fileID: 4207049000115420636}
   - component: {fileID: 4297250704646101543}
   - component: {fileID: 2916061546961621513}
+  - component: {fileID: 4534145887120284377}
   m_Layer: 5
   m_Name: Card6
   m_TagString: Untagged
@@ -982,6 +1015,37 @@ MonoBehaviour:
   background: {fileID: 8260701712110645391}
   symbol: {fileID: 7147069472763459691}
   back: {fileID: 5093187681973354778}
+--- !u!114 &4534145887120284377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2231021504729526645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1404082868
+      Data2: 1204757653
+      Data3: -677358685
+      Data4: -1639573391
+    Path: event:/UI/Play_ui_button_hover
+  Event: 
+  EventPlayTrigger: 17
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: -1
+  OverrideMaxDistance: -1
 --- !u!1 &2428705784772181227
 GameObject:
   m_ObjectHideFlags: 0
@@ -993,6 +1057,7 @@ GameObject:
   - component: {fileID: 3853703388568846561}
   - component: {fileID: 7715764463070093323}
   - component: {fileID: 6530238964735924352}
+  - component: {fileID: 2380387951858788798}
   m_Layer: 5
   m_Name: Card5
   m_TagString: Untagged
@@ -1083,6 +1148,37 @@ MonoBehaviour:
   background: {fileID: 2930561577548814718}
   symbol: {fileID: 1623237773873883026}
   back: {fileID: 8939266020116931712}
+--- !u!114 &2380387951858788798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2428705784772181227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1404082868
+      Data2: 1204757653
+      Data3: -677358685
+      Data4: -1639573391
+    Path: event:/UI/Play_ui_button_hover
+  Event: 
+  EventPlayTrigger: 17
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: -1
+  OverrideMaxDistance: -1
 --- !u!1 &2485109542446616422
 GameObject:
   m_ObjectHideFlags: 0
@@ -1320,6 +1416,7 @@ GameObject:
   - component: {fileID: 4918534871033277465}
   - component: {fileID: 4329573952465389275}
   - component: {fileID: 5532585892508083115}
+  - component: {fileID: 3614920495410469518}
   m_Layer: 5
   m_Name: Card1
   m_TagString: Untagged
@@ -1410,6 +1507,37 @@ MonoBehaviour:
   background: {fileID: 8762101309373799541}
   symbol: {fileID: 7642122503437744295}
   back: {fileID: 5979186703262171375}
+--- !u!114 &3614920495410469518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2957130564772880125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1404082868
+      Data2: 1204757653
+      Data3: -677358685
+      Data4: -1639573391
+    Path: event:/UI/Play_ui_button_hover
+  Event: 
+  EventPlayTrigger: 17
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: -1
+  OverrideMaxDistance: -1
 --- !u!1 &3056073288479622040
 GameObject:
   m_ObjectHideFlags: 0
@@ -2008,6 +2136,7 @@ GameObject:
   - component: {fileID: 1057356615535499890}
   - component: {fileID: 1625609323282764190}
   - component: {fileID: 9004325187610770283}
+  - component: {fileID: 8203536877079230088}
   m_Layer: 5
   m_Name: Card2
   m_TagString: Untagged
@@ -2098,6 +2227,37 @@ MonoBehaviour:
   background: {fileID: 4854145236970293792}
   symbol: {fileID: 8008643409698635574}
   back: {fileID: 906953524983931544}
+--- !u!114 &8203536877079230088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4588765318779176259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1404082868
+      Data2: 1204757653
+      Data3: -677358685
+      Data4: -1639573391
+    Path: event:/UI/Play_ui_button_hover
+  Event: 
+  EventPlayTrigger: 17
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: -1
+  OverrideMaxDistance: -1
 --- !u!1 &4695695038989054844
 GameObject:
   m_ObjectHideFlags: 0
@@ -2409,6 +2569,7 @@ GameObject:
   - component: {fileID: 7284913008910957628}
   - component: {fileID: 1853571054477895876}
   - component: {fileID: 36662091026894922}
+  - component: {fileID: 8148897252427346428}
   m_Layer: 5
   m_Name: Card4
   m_TagString: Untagged
@@ -2499,6 +2660,37 @@ MonoBehaviour:
   background: {fileID: 2629027550778258957}
   symbol: {fileID: 4853979644955656860}
   back: {fileID: 2321176593042880438}
+--- !u!114 &8148897252427346428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5467433905966052261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1404082868
+      Data2: 1204757653
+      Data3: -677358685
+      Data4: -1639573391
+    Path: event:/UI/Play_ui_button_hover
+  Event: 
+  EventPlayTrigger: 17
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: -1
+  OverrideMaxDistance: -1
 --- !u!1 &5514325433129004767
 GameObject:
   m_ObjectHideFlags: 0
@@ -2663,6 +2855,7 @@ GameObject:
   - component: {fileID: 8932622246773313682}
   - component: {fileID: 5705794724833269577}
   - component: {fileID: 1561723062214795454}
+  - component: {fileID: 3514792958094153167}
   m_Layer: 5
   m_Name: RestartButton
   m_TagString: Untagged
@@ -2821,6 +3014,37 @@ MonoBehaviour:
   activeScale: 1.04
   pressedScale: 0.97
   transitionDuration: 0.12
+--- !u!114 &3514792958094153167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5899800892060306467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1404082868
+      Data2: 1204757653
+      Data3: -677358685
+      Data4: -1639573391
+    Path: event:/UI/Play_ui_button_hover
+  Event: 
+  EventPlayTrigger: 17
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: -1
+  OverrideMaxDistance: -1
 --- !u!1 &6053072511082096529
 GameObject:
   m_ObjectHideFlags: 0
@@ -3119,6 +3343,7 @@ GameObject:
   - component: {fileID: 7543582301213216487}
   - component: {fileID: 3688187093236424676}
   - component: {fileID: 4382447018075340508}
+  - component: {fileID: 3488426645783814436}
   m_Layer: 5
   m_Name: Card3
   m_TagString: Untagged
@@ -3209,6 +3434,37 @@ MonoBehaviour:
   background: {fileID: 5859271160792071767}
   symbol: {fileID: 3500350425705335686}
   back: {fileID: 5090989379518906958}
+--- !u!114 &3488426645783814436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6640933149701995332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1404082868
+      Data2: 1204757653
+      Data3: -677358685
+      Data4: -1639573391
+    Path: event:/UI/Play_ui_button_hover
+  Event: 
+  EventPlayTrigger: 17
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: -1
+  OverrideMaxDistance: -1
 --- !u!1 &6858464628802548619
 GameObject:
   m_ObjectHideFlags: 0

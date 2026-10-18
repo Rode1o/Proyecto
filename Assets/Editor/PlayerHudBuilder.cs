@@ -69,6 +69,19 @@ static class PlayerHudBuilder
     const float DialogScale = 0.78f;
     static readonly Vector2 DialogButtonSize = new Vector2(360f, 121f);
 
+    // Sonidos de interfaz ("guid|ruta"), los mismos que usa el menú principal.
+    const string HoverEvent = "53b09ab4-2495-47cf-a353-a0d77118469e|event:/UI/Play_ui_button_hover";
+    const string DiaryOpenEvent = "5e7131c8-e60c-48bb-a974-5e0e63098b8a|event:/UI/Play_ui_button_open";
+    const string DiaryCloseEvent = "de5ea2e4-e387-4144-9b13-797275da5bbc|event:/UI/Play_ui_button_close";
+
+    // Eventos de FMOD del diálogo ("guid|ruta"). En el proyecto el del Sí se llama "buttom".
+    const string DialogOpenEvent = "0cae445c-797d-4df7-b33c-01029ae10bdd|event:/DX/Witch/Play_dx_witch";
+    static readonly string[] DialogOptionEvents =
+    {
+        "27f611cc-2f0c-4adb-9b29-55ef8da0737d|event:/UI/Play_ui_buttom_yes",
+        "a6684730-199f-4b74-935c-ada813aa0e8b|event:/UI/Play_ui_button_no",
+    };
+
     // Aviso de "no puedes todavía" (barra de pergamino arriba al centro) y ventanas de minijuego.
     const float MessageWidth = 860f;
     const float MinigameWindowWidth = 1400f;
@@ -518,8 +531,36 @@ static class PlayerHudBuilder
         so.FindProperty("portrait").objectReferenceValue = portraitImage;
         so.FindProperty("defaultPortrait").objectReferenceValue = dialogPortrait;
         so.FindProperty("dismissArea").objectReferenceValue = blocker;
+        // Voz de la oveja al abrirse y sonido de cada opción (Sí, No).
+        SetEventReference(so.FindProperty("openSound"), DialogOpenEvent);
+        var sounds = so.FindProperty("optionSounds");
+        sounds.arraySize = DialogOptionEvents.Length;
+        for (var i = 0; i < DialogOptionEvents.Length; i++)
+            SetEventReference(sounds.GetArrayElementAtIndex(i), DialogOptionEvents[i]);
         so.ApplyModifiedPropertiesWithoutUndo();
         return fill;
+    }
+
+    /// <summary>Sonido al pasar el ratón, como en el menú principal: StudioEventEmitter en UIMouseEnter.</summary>
+    static void AddHoverSound(GameObject button)
+    {
+        var emitter = button.AddComponent<FMODUnity.StudioEventEmitter>();
+        var so = new SerializedObject(emitter);
+        SetEventReference(so.FindProperty("EventReference"), HoverEvent);
+        so.FindProperty("EventPlayTrigger").enumValueIndex = (int)FMODUnity.EmitterGameEvent.UIMouseEnter;
+        so.FindProperty("EventStopTrigger").enumValueIndex = (int)FMODUnity.EmitterGameEvent.None;
+        so.ApplyModifiedPropertiesWithoutUndo();
+    }
+
+    /// <summary>Rellena un EventReference de FMOD (Guid en 4 ints + ruta) desde "guid|ruta".</summary>
+    static void SetEventReference(SerializedProperty property, string guidAndPath)
+    {
+        var parts = guidAndPath.Split('|');
+        var bytes = new System.Guid(parts[0]).ToByteArray();
+        var guid = property.FindPropertyRelative("Guid");
+        for (var i = 0; i < 4; i++)
+            guid.FindPropertyRelative("Data" + (i + 1)).intValue = System.BitConverter.ToInt32(bytes, i * 4);
+        property.FindPropertyRelative("Path").stringValue = parts[1];
     }
 
     /// <summary>Botón con los marcos inactivo/activo del menú principal (9-slice) y MenuButtonVisual.</summary>
@@ -552,6 +593,8 @@ static class PlayerHudBuilder
         label.enableAutoSizing = true;
         label.fontSizeMin = maxFont * 0.65f;
         label.fontSizeMax = maxFont;
+
+        AddHoverSound(rect.gameObject);
 
         var visual = rect.gameObject.AddComponent<MenuButtonVisual>();
         var so = new SerializedObject(visual);
@@ -766,6 +809,7 @@ static class PlayerHudBuilder
         // El minijuego pinta el color de cada nodo: el botón no tiñe.
         button.transition = Selectable.Transition.None;
         button.navigation = new Navigation { mode = Navigation.Mode.None };
+        AddHoverSound(node.gameObject);
         return button;
     }
 
@@ -859,6 +903,7 @@ static class PlayerHudBuilder
         // MemoryCardView pinta el fondo según el estado: el botón no tiñe.
         button.transition = Selectable.Transition.None;
         button.navigation = new Navigation { mode = Navigation.Mode.None };
+        AddHoverSound(card.gameObject);
 
         var view = card.gameObject.AddComponent<MemoryCardView>();
         var so = new SerializedObject(view);
@@ -1120,6 +1165,8 @@ static class PlayerHudBuilder
             selectedSprite = diaryButton,
         };
         button.navigation = new Navigation { mode = Navigation.Mode.None };
+        AddHoverSound(button.gameObject);
+        AddHoverSound(close.gameObject);
 
         var diary = root.gameObject.AddComponent<DiaryPanel>();
         var so = new SerializedObject(diary);
@@ -1130,6 +1177,8 @@ static class PlayerHudBuilder
         so.FindProperty("islandLabel").objectReferenceValue = island;
         so.FindProperty("rowTemplate").objectReferenceValue = row;
         so.FindProperty("rowContainer").objectReferenceValue = list;
+        SetEventReference(so.FindProperty("openSound"), DiaryOpenEvent);
+        SetEventReference(so.FindProperty("closeSound"), DiaryCloseEvent);
         so.ApplyModifiedPropertiesWithoutUndo();
 
         // El contenedor no debe tapar clics del juego cuando el diario está cerrado.

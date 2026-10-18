@@ -1,4 +1,5 @@
 using System;
+using FMODUnity;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,6 +41,12 @@ public class DialogBox : MonoBehaviour
     [SerializeField] Button dismissArea;
     [Tooltip("Las réplicas se cierran solas tras estos segundos (0 = solo con clic).")]
     [SerializeField, Min(0f)] float replyDuration = 3f;
+
+    [Header("Sonidos (FMOD, opcionales)")]
+    [Tooltip("Suena cada vez que se abre el diálogo (la voz de quien habla).")]
+    [SerializeField] EventReference openSound;
+    [Tooltip("Un sonido por opción, en el mismo orden que los botones (p. ej. Sí, No).")]
+    [SerializeField] EventReference[] optionSounds = Array.Empty<EventReference>();
 
     Action<int> onChosen;
     bool isReply;
@@ -100,6 +107,7 @@ public class DialogBox : MonoBehaviour
         isReply = optionCount == 0;
         replyTimer = 0f;
         root.SetActive(true);
+        Play(openSound);
     }
 
     /// <summary>Réplica sin opciones (p. ej. la respuesta de la oveja al rechazarla).</summary>
@@ -111,9 +119,19 @@ public class DialogBox : MonoBehaviour
         if (!IsOpen)
             return;
 
+        // -1 = réplica cerrada sin elegir: no lleva sonido de botón.
+        if (index >= 0 && index < optionSounds.Length)
+            Play(optionSounds[index]);
+
         root.SetActive(false);
         var callback = onChosen;
         onChosen = null;
         callback?.Invoke(index);
+    }
+
+    static void Play(EventReference sound)
+    {
+        if (!sound.IsNull)
+            RuntimeManager.PlayOneShot(sound);
     }
 }

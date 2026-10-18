@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FMODUnity;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -22,6 +23,10 @@ public class DiaryPanel : MonoBehaviour
     [Tooltip("Fila de ejemplo (desactivada) que se copia por cada encargo.")]
     [SerializeField] QuestRow rowTemplate;
     [SerializeField] Transform rowContainer;
+
+    [Header("Sonidos (FMOD, opcionales)")]
+    [SerializeField] EventReference openSound;
+    [SerializeField] EventReference closeSound;
 
     readonly List<QuestRow> rows = new();
 
@@ -68,11 +73,26 @@ public class DiaryPanel : MonoBehaviour
 
     public void Open()
     {
+        if (IsOpen)
+            return;
         panel.SetActive(true);
         Refresh(-1);
+        Play(openSound);
     }
 
-    public void Close() => panel.SetActive(false);
+    public void Close()
+    {
+        if (!IsOpen)
+            return;
+        panel.SetActive(false);
+        Play(closeSound);
+    }
+
+    static void Play(EventReference sound)
+    {
+        if (!sound.IsNull)
+            RuntimeManager.PlayOneShot(sound);
+    }
 
     void OnQuestChanged(int index)
     {

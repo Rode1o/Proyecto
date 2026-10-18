@@ -64,7 +64,7 @@ public class PlayerFootsteps : MonoBehaviour
 
         var marker = hit.collider.GetComponentInParent<FootstepSurface>();
         if (marker != null)
-            surface = marker.Surface;
+            surface = marker.GetSurface(hit);
         return true;
     }
 

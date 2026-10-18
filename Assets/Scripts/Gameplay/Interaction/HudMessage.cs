@@ -1,4 +1,5 @@
 using System.Collections;
+using FMODUnity;
 using TMPro;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ public class HudMessage : MonoBehaviour
     [SerializeField] GameObject root;
     [SerializeField] TMP_Text text;
     [SerializeField, Min(0.1f)] float duration = 2.5f;
+    [Tooltip("Opcional: suena cuando una interacción se bloquea (faltan requisitos).")]
+    [SerializeField] EventReference blockedSound;
 
     void Awake()
     {
@@ -34,7 +37,12 @@ public class HudMessage : MonoBehaviour
             interactor.InteractionBlocked -= OnInteractionBlocked;
     }
 
-    void OnInteractionBlocked(Interactable _, string reason) => Show(reason);
+    void OnInteractionBlocked(Interactable _, string reason)
+    {
+        if (!blockedSound.IsNull)
+            RuntimeManager.PlayOneShot(blockedSound);
+        Show(reason);
+    }
 
     public void Show(string message)
     {

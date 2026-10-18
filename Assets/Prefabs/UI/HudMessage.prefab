@@ -257,6 +257,13 @@ MonoBehaviour:
   root: {fileID: 7442791964322855323}
   text: {fileID: 3675522467521873965}
   duration: 2.5
+  blockedSound:
+    Guid:
+      Data1: -798947881
+      Data2: 1084768332
+      Data3: 233916593
+      Data4: 312984825
+    Path: event:/HUD/Play_hud_action_error
 --- !u!1 &7442791964322855323
 GameObject:
   m_ObjectHideFlags: 0
