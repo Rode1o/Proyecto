@@ -35,6 +35,8 @@ public class ConnectDotsMinigame : Minigame
     [SerializeField] float lineThickness = 8f;
     [SerializeField] Color idleColor = new(0.95f, 0.92f, 0.85f);
     [SerializeField] Color selectedColor = new(1f, 0.8f, 0.3f);
+    [Tooltip("Color de las líneas mientras se traza la secuencia.")]
+    [SerializeField] Color lineColor = new Color32(0x92, 0x70, 0xC7, 0xFF);
     [SerializeField] Color errorColor = new(0.9f, 0.3f, 0.25f);
     [SerializeField] Color successColor = new(0.45f, 0.85f, 0.4f);
 
@@ -164,7 +166,7 @@ public class ConnectDotsMinigame : Minigame
         rect.localRotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg);
 
         var image = line.GetComponent<Image>();
-        image.color = selectedColor;
+        image.color = lineColor;
         image.raycastTarget = false;
         return image;
     }

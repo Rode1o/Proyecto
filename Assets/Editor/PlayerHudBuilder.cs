@@ -13,6 +13,14 @@ using UnityEngine.UI;
 static class PlayerHudBuilder
 {
     const string PrefabPath = "Assets/Prefabs/UI/PlayerHUD.prefab";
+    const string HudMessagePrefabPath = "Assets/Prefabs/UI/HudMessage.prefab";
+    const string ConnectDotsPrefabPath = "Assets/Prefabs/UI/ConnectDotsMinigame.prefab";
+    const string MemoryPairsPrefabPath = "Assets/Prefabs/UI/MemoryPairsMinigame.prefab";
+
+    // Orden de dibujo: HUD < avisos < minijuegos.
+    const int HudSortingOrder = 10;
+    const int MessageSortingOrder = 15;
+    const int MinigameSortingOrder = 20;
     const string ScenePath = "Assets/Scenes/PlayerHUD.unity";
 
     const string ArtPath = "Assets/Art/UI/HUD/";
@@ -61,6 +69,14 @@ static class PlayerHudBuilder
     const float DialogScale = 0.78f;
     static readonly Vector2 DialogButtonSize = new Vector2(360f, 121f);
 
+    // Aviso de "no puedes todavía" (barra de pergamino arriba al centro) y ventanas de minijuego.
+    const float MessageWidth = 860f;
+    const float MinigameWindowWidth = 1400f;
+    const float DotNodeSize = 140f;
+    static readonly Vector2 MinigameButtonSize = new Vector2(320f, 108f);
+    static readonly Vector2 CardSize = new Vector2(205f, 179f);   // Proporción del marco de 1341x1173.
+    static readonly Color BlockerColor = new Color(0.04f, 0.02f, 0.06f, 0.5f);
+
     static readonly Color InkColor = new Color32(59, 36, 20, 255);
     static readonly Color InkSoftColor = new Color32(104, 68, 40, 255);
     static readonly Color IdleTint = new Color32(228, 228, 228, 255);
@@ -80,6 +96,8 @@ static class PlayerHudBuilder
     static Sprite sheepAngry;
     static Material portraitMaterial;
     static Sprite notificationBar;
+    static Sprite cardFrame;
+    static Sprite circleSprite;
     static Sprite dialogBubble;
     static Sprite dialogPortrait;
     static Sprite menuButtonActive;
@@ -116,6 +134,11 @@ static class PlayerHudBuilder
         EnsureFolder("Assets/Prefabs/UI");
         PrefabUtility.SaveAsPrefabAssetAndConnect(hud, PrefabPath, InteractionMode.AutomatedAction);
 
+        // Pantallas sueltas: cada escena añade solo las que usa (los mecanismos las referencian).
+        PrefabUtility.SaveAsPrefabAssetAndConnect(CreateHudMessage(), HudMessagePrefabPath, InteractionMode.AutomatedAction);
+        PrefabUtility.SaveAsPrefabAssetAndConnect(CreateConnectDots(), ConnectDotsPrefabPath, InteractionMode.AutomatedAction);
+        PrefabUtility.SaveAsPrefabAssetAndConnect(CreateMemoryPairs(), MemoryPairsPrefabPath, InteractionMode.AutomatedAction);
+
         Selection.activeGameObject = camera.gameObject;
         EditorSceneManager.SaveScene(scene, ScenePath);
         Debug.Log($"HUD generado en {PrefabPath} y escena de prueba en {ScenePath}");
@@ -141,6 +164,8 @@ static class PlayerHudBuilder
         sheepAngry = ImportSprite(PortraitPath + "OvejaEnfurecida.png");
         portraitMaterial = GetOrCreateMaterial(PortraitMaterialPath, PortraitShaderName);
         notificationBar = ImportSprite(ArtPath + "BarraNotificacion.png");
+        cardFrame = ImportSprite(ArtPath + "Minigames/MarcoCarta.png");
+        circleSprite = GetOrCreateCircleSprite();
         dialogBubble = ImportSprite(DialogPath + "Bocadillo.png");
         dialogPortrait = ImportSprite(DialogPath + "RetratoOvejaAstuta.png");
         // Importados (con su 9-slice) por el builder del menú principal.
@@ -294,17 +319,24 @@ static class PlayerHudBuilder
 
     // ---------- HUD ----------
 
-    static GameObject CreateHud()
+    /// <summary>Canvas a pantalla completa con la misma escala 2K que el resto de la UI.</summary>
+    static GameObject CreateOverlayCanvas(string name, int sortingOrder)
     {
-        var go = new GameObject("PlayerHUD", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
+        var go = new GameObject(name, typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
         go.layer = LayerMask.NameToLayer("UI");
         var canvas = go.GetComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvas.sortingOrder = 10;
+        canvas.sortingOrder = sortingOrder;
         var scaler = go.GetComponent<CanvasScaler>();
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         scaler.referenceResolution = ReferenceResolution;
         scaler.matchWidthOrHeight = 0.5f;
+        return go;
+    }
+
+    static GameObject CreateHud()
+    {
+        var go = CreateOverlayCanvas("PlayerHUD", HudSortingOrder);
 
         CreateRotateWidget(go.transform);
         CreateQuestPanel(go.transform);
@@ -468,7 +500,7 @@ static class PlayerHudBuilder
         var optionButtons = new Button[2];
         var optionLabels = new TMP_Text[2];
         for (var i = 0; i < optionButtons.Length; i++)
-            (optionButtons[i], optionLabels[i]) = CreateMenuStyleButton(buttons, "Option" + (i + 1));
+            (optionButtons[i], optionLabels[i]) = CreateMenuStyleButton(buttons, "Option" + (i + 1), DialogButtonSize);
 
         var dialog = holder.gameObject.AddComponent<DialogBox>();
         var so = new SerializedObject(dialog);
@@ -491,12 +523,13 @@ static class PlayerHudBuilder
     }
 
     /// <summary>Botón con los marcos inactivo/activo del menú principal (9-slice) y MenuButtonVisual.</summary>
-    static (Button, TMP_Text) CreateMenuStyleButton(Transform parent, string name)
+    static (Button, TMP_Text) CreateMenuStyleButton(Transform parent, string name, Vector2 size)
     {
         var rect = CreateRect(parent, name);
+        rect.sizeDelta = size;
         var element = rect.gameObject.AddComponent<LayoutElement>();
-        element.minWidth = element.preferredWidth = DialogButtonSize.x;
-        element.minHeight = element.preferredHeight = DialogButtonSize.y;
+        element.minWidth = element.preferredWidth = size.x;
+        element.minHeight = element.preferredHeight = size.y;
 
         var hitArea = rect.gameObject.AddComponent<Image>();
         hitArea.color = Color.clear;
@@ -505,19 +538,20 @@ static class PlayerHudBuilder
         button.targetGraphic = hitArea;
 
         // Los bordes del 9-slice se escalan al alto del botón (el sprite mide 175 de alto).
-        var borderScale = MenuButtonSpriteHeight / DialogButtonSize.y;
+        var borderScale = MenuButtonSpriteHeight / size.y;
         var inactive = CreateSlicedFrame(rect, "InactiveFrame", menuButtonInactive, borderScale);
         var active = CreateSlicedFrame(rect, "ActiveFrame", menuButtonActive, borderScale);
         active.material = menuShineMaterial;
 
-        var label = CreateText(rect, "Label", "Opción", 44f, Color.white, bodyBoldFont);
+        var maxFont = size.y * 0.36f;
+        var label = CreateText(rect, "Label", "Opción", maxFont, Color.white, bodyBoldFont);
         Stretch(label.rectTransform);
         label.rectTransform.offsetMin = new Vector2(40f, 0f);
         label.rectTransform.offsetMax = new Vector2(-40f, 0f);
         label.textWrappingMode = TextWrappingModes.NoWrap;
         label.enableAutoSizing = true;
-        label.fontSizeMin = 28f;
-        label.fontSizeMax = 44f;
+        label.fontSizeMin = maxFont * 0.65f;
+        label.fontSizeMax = maxFont;
 
         var visual = rect.gameObject.AddComponent<MenuButtonVisual>();
         var so = new SerializedObject(visual);
@@ -526,6 +560,314 @@ static class PlayerHudBuilder
         so.FindProperty("label").objectReferenceValue = label;
         so.ApplyModifiedPropertiesWithoutUndo();
         return (button, label);
+    }
+
+    // ---------- Aviso de interacción bloqueada ----------
+
+    /// <summary>
+    /// HudMessage: la barra de pergamino arriba al centro con el motivo (p. ej. "Recoge todos los
+    /// objetos de la isla primero"). Prefab con su propio Canvas.
+    /// </summary>
+    static GameObject CreateHudMessage()
+    {
+        var canvas = CreateOverlayCanvas("HudMessage", MessageSortingOrder);
+
+        var height = MessageWidth * plaque.rect.height / plaque.rect.width;
+        var panel = CreateRect(canvas.transform, "Panel");
+        panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(0.5f, 1f);
+        panel.sizeDelta = new Vector2(MessageWidth, height);
+        // La placa tiene ~24% de margen transparente arriba: se sube para que la franja quede a 40 px.
+        panel.anchoredPosition = new Vector2(0f, height * 0.24f - 40f);
+        var image = panel.gameObject.AddComponent<Image>();
+        image.sprite = plaque;
+        image.raycastTarget = false;
+
+        // Franja de pergamino del sprite (sin el borde ni el adorno inferior).
+        var text = CreateText(panel, "Text", "", 34f, InkColor, bodyBoldFont);
+        SetAnchors(text.rectTransform, new Vector2(0.06f, 0.33f), new Vector2(0.94f, 0.76f));
+        text.enableAutoSizing = true;
+        text.fontSizeMin = 24f;
+        text.fontSizeMax = 34f;
+
+        var message = canvas.AddComponent<HudMessage>();
+        var so = new SerializedObject(message);
+        so.FindProperty("root").objectReferenceValue = panel.gameObject;
+        so.FindProperty("text").objectReferenceValue = text;
+        so.ApplyModifiedPropertiesWithoutUndo();
+        return canvas;
+    }
+
+    // ---------- Minijuegos ----------
+
+    /// <summary>
+    /// Base de las ventanas de minijuego: Root (lo que Minigame activa) con un bloqueador a pantalla
+    /// completa y el pergamino centrado. Devuelve la zona de contenido dentro del marco.
+    /// </summary>
+    static (GameObject canvas, GameObject root, RectTransform content) CreateMinigameWindow(string name, string title)
+    {
+        var canvas = CreateOverlayCanvas(name, MinigameSortingOrder);
+        var root = CreateRect(canvas.transform, "Root");
+        Stretch(root);
+
+        // El bloqueador frena los clics al mundo mientras el minijuego está abierto.
+        var blocker = CreateRect(root, "Blocker");
+        Stretch(blocker);
+        blocker.gameObject.AddComponent<Image>().color = BlockerColor;
+
+        var height = MinigameWindowWidth * diaryBackground.rect.height / diaryBackground.rect.width;
+        var window = CreateRect(root, "Window");
+        window.anchorMin = window.anchorMax = new Vector2(0.5f, 0.5f);
+        window.sizeDelta = new Vector2(MinigameWindowWidth, height);
+        window.gameObject.AddComponent<Image>().sprite = diaryBackground;
+
+        // Mismos márgenes interiores que el pergamino del menú, a esta escala.
+        var scale = MinigameWindowWidth / 1700f;
+        var content = CreateRect(window, "Content");
+        Stretch(content);
+        content.offsetMin = new Vector2(150f, 115f) * scale;
+        content.offsetMax = new Vector2(-150f, -80f) * scale;
+
+        var titleText = CreateText(content, "Title", title, 60f, InkColor, titleFont);
+        titleText.rectTransform.anchorMin = new Vector2(0f, 1f);
+        titleText.rectTransform.anchorMax = Vector2.one;
+        titleText.rectTransform.pivot = new Vector2(0.5f, 1f);
+        titleText.rectTransform.sizeDelta = new Vector2(0f, 76f);
+        titleText.textWrappingMode = TextWrappingModes.NoWrap;
+        return (canvas, root.gameObject, content);
+    }
+
+    /// <summary>Fila inferior con Reiniciar y Cerrar (botones del menú principal) y el texto de resultado encima.</summary>
+    static (Button restart, Button close, TMP_Text result) CreateMinigameFooter(RectTransform content)
+    {
+        var row = CreateRect(content, "Buttons");
+        row.anchorMin = Vector2.zero;
+        row.anchorMax = new Vector2(1f, 0f);
+        row.pivot = new Vector2(0.5f, 0f);
+        row.sizeDelta = new Vector2(0f, MinigameButtonSize.y);
+        var layout = row.gameObject.AddComponent<HorizontalLayoutGroup>();
+        layout.spacing = 70f;
+        layout.childAlignment = TextAnchor.MiddleCenter;
+        layout.childControlWidth = true;
+        layout.childControlHeight = true;
+        layout.childForceExpandWidth = false;
+        layout.childForceExpandHeight = false;
+
+        var (restart, restartLabel) = CreateMenuStyleButton(row, "RestartButton", MinigameButtonSize);
+        restartLabel.text = "Reiniciar";
+        var (close, closeLabel) = CreateMenuStyleButton(row, "CloseButton", MinigameButtonSize);
+        closeLabel.text = "Cerrar";
+
+        var result = CreateText(content, "Result", "", 32f, InkColor, bodyBoldFont);
+        result.rectTransform.anchorMin = Vector2.zero;
+        result.rectTransform.anchorMax = new Vector2(1f, 0f);
+        result.rectTransform.pivot = new Vector2(0.5f, 0f);
+        result.rectTransform.sizeDelta = new Vector2(0f, 44f);
+        result.rectTransform.anchoredPosition = new Vector2(0f, MinigameButtonSize.y + 8f);
+        return (restart, close, result);
+    }
+
+    /// <summary>
+    /// Conectar los puntos: nodos A, B y C con el marco circular dorado sobre un círculo que cambia
+    /// de color, guías tenues del triángulo y las líneas del jugador debajo de los nodos.
+    /// </summary>
+    static GameObject CreateConnectDots()
+    {
+        var (canvas, root, content) = CreateMinigameWindow("ConnectDotsMinigame", "Conecta los puntos");
+
+        var hint = CreateText(content, "Hint", "", 36f, InkSoftColor, bodyFont);
+        hint.fontStyle = FontStyles.Italic;
+        hint.rectTransform.anchorMin = new Vector2(0f, 1f);
+        hint.rectTransform.anchorMax = Vector2.one;
+        hint.rectTransform.pivot = new Vector2(0.5f, 1f);
+        hint.rectTransform.sizeDelta = new Vector2(0f, 50f);
+        hint.rectTransform.anchoredPosition = new Vector2(0f, -80f);
+
+        // Tablero entre la pista y el resultado.
+        var board = CreateRect(content, "Board");
+        board.anchorMin = Vector2.zero;
+        board.anchorMax = Vector2.one;
+        board.offsetMin = new Vector2(0f, MinigameButtonSize.y + 56f);
+        board.offsetMax = new Vector2(0f, -136f);
+
+        var positions = new[]
+        {
+            new Vector2(-260f, -70f), // A
+            new Vector2(0f, 90f),     // B
+            new Vector2(260f, -70f),  // C
+        };
+
+        // Guías del triángulo, tenues, para que se vea qué se puede unir.
+        var guides = CreateRect(board, "Guides");
+        Stretch(guides);
+        for (var i = 0; i < positions.Length; i++)
+            CreateGuideLine(guides, positions[i], positions[(i + 1) % positions.Length]);
+
+        // Las líneas del jugador van antes que los nodos para quedar debajo.
+        var lines = CreateRect(board, "Lines");
+        Stretch(lines);
+
+        var nodes = new Button[3];
+        var letters = new[] { "A", "B", "C" };
+        for (var i = 0; i < nodes.Length; i++)
+            nodes[i] = CreateDotNode(board, letters[i], positions[i]);
+
+        var (restart, close, result) = CreateMinigameFooter(content);
+
+        var minigame = canvas.AddComponent<ConnectDotsMinigame>();
+        var so = new SerializedObject(minigame);
+        so.FindProperty("root").objectReferenceValue = root;
+        so.FindProperty("linesContainer").objectReferenceValue = lines;
+        var nodesProp = so.FindProperty("nodes");
+        nodesProp.arraySize = nodes.Length;
+        for (var i = 0; i < nodes.Length; i++)
+            nodesProp.GetArrayElementAtIndex(i).objectReferenceValue = nodes[i];
+        so.FindProperty("hintText").objectReferenceValue = hint;
+        so.FindProperty("resultText").objectReferenceValue = result;
+        so.FindProperty("restartButton").objectReferenceValue = restart;
+        so.FindProperty("closeButton").objectReferenceValue = close;
+        so.FindProperty("lineThickness").floatValue = 10f;
+        so.FindProperty("idleColor").colorValue = new Color32(246, 236, 214, 255);
+        so.FindProperty("selectedColor").colorValue = new Color32(255, 210, 120, 255);
+        so.FindProperty("errorColor").colorValue = new Color32(214, 92, 76, 255);
+        so.FindProperty("successColor").colorValue = new Color32(140, 200, 110, 255);
+        so.FindProperty("lineColor").colorValue = new Color32(0x92, 0x70, 0xC7, 0xFF);
+        so.ApplyModifiedPropertiesWithoutUndo();
+
+        root.SetActive(false);
+        return canvas;
+    }
+
+    /// <summary>Nodo: círculo que cambia de color (destino del clic) bajo el marco dorado, con su letra.</summary>
+    static Button CreateDotNode(Transform board, string letter, Vector2 position)
+    {
+        var node = CreateRect(board, "Node" + letter);
+        node.anchorMin = node.anchorMax = new Vector2(0.5f, 0.5f);
+        node.sizeDelta = Vector2.one * DotNodeSize;
+        node.anchoredPosition = position;
+
+        // El aro del marco va de ~0.74 a ~0.84: el círculo de color queda debajo de su borde.
+        var fillRect = CreateRect(node, "Fill");
+        fillRect.anchorMin = fillRect.anchorMax = new Vector2(0.5f, 0.5f);
+        fillRect.sizeDelta = Vector2.one * DotNodeSize * 0.8f;
+        var fill = fillRect.gameObject.AddComponent<Image>();
+        fill.sprite = circleSprite;
+
+        var frameRect = CreateRect(node, "Frame");
+        Stretch(frameRect);
+        var frame = frameRect.gameObject.AddComponent<Image>();
+        frame.sprite = portraitFrame;
+        frame.raycastTarget = false;
+
+        var text = CreateText(node, "Letter", letter, DotNodeSize * 0.36f, InkColor, titleFont);
+        Stretch(text.rectTransform);
+
+        var button = node.gameObject.AddComponent<Button>();
+        button.targetGraphic = fill;
+        // El minijuego pinta el color de cada nodo: el botón no tiñe.
+        button.transition = Selectable.Transition.None;
+        button.navigation = new Navigation { mode = Navigation.Mode.None };
+        return button;
+    }
+
+    static void CreateGuideLine(Transform parent, Vector2 from, Vector2 to)
+    {
+        var delta = to - from;
+        var rect = CreateRect(parent, "Guide");
+        rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.5f);
+        rect.pivot = new Vector2(0f, 0.5f);
+        rect.anchoredPosition = from;
+        rect.sizeDelta = new Vector2(delta.magnitude, 4f);
+        rect.localRotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg);
+        var image = rect.gameObject.AddComponent<Image>();
+        image.color = new Color(InkSoftColor.r, InkSoftColor.g, InkSoftColor.b, 0.25f);
+        image.raycastTarget = false;
+    }
+
+    /// <summary>Encuentra las parejas: seis cartas en 3x2 con el marco dorado ornamental.</summary>
+    static GameObject CreateMemoryPairs()
+    {
+        var (canvas, root, content) = CreateMinigameWindow("MemoryPairsMinigame", "Encuentra las parejas");
+
+        var grid = CreateRect(content, "Cards");
+        grid.anchorMin = Vector2.zero;
+        grid.anchorMax = Vector2.one;
+        grid.offsetMin = new Vector2(0f, MinigameButtonSize.y + 56f);
+        grid.offsetMax = new Vector2(0f, -86f);
+        var layout = grid.gameObject.AddComponent<GridLayoutGroup>();
+        layout.cellSize = CardSize;
+        layout.spacing = new Vector2(34f, 14f);
+        layout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+        layout.constraintCount = 3;
+        layout.childAlignment = TextAnchor.MiddleCenter;
+
+        var cards = new MemoryCardView[6];
+        for (var i = 0; i < cards.Length; i++)
+            cards[i] = CreateMemoryCard(grid, "Card" + (i + 1));
+
+        var (restart, close, result) = CreateMinigameFooter(content);
+
+        var minigame = canvas.AddComponent<MemoryPairsMinigame>();
+        var so = new SerializedObject(minigame);
+        so.FindProperty("root").objectReferenceValue = root;
+        var cardsProp = so.FindProperty("cards");
+        cardsProp.arraySize = cards.Length;
+        for (var i = 0; i < cards.Length; i++)
+            cardsProp.GetArrayElementAtIndex(i).objectReferenceValue = cards[i];
+        so.FindProperty("resultText").objectReferenceValue = result;
+        so.FindProperty("restartButton").objectReferenceValue = restart;
+        so.FindProperty("closeButton").objectReferenceValue = close;
+        so.FindProperty("backColor").colorValue = new Color32(46, 92, 52, 255);
+        so.FindProperty("faceColor").colorValue = new Color32(248, 238, 214, 255);
+        so.FindProperty("matchedColor").colorValue = new Color32(196, 228, 160, 255);
+        so.ApplyModifiedPropertiesWithoutUndo();
+
+        root.SetActive(false);
+        return canvas;
+    }
+
+    /// <summary>Carta: fondo de color en el hueco del marco, reverso y símbolo encima, y el marco dorado.</summary>
+    static MemoryCardView CreateMemoryCard(Transform grid, string name)
+    {
+        var card = CreateRect(grid, name);
+
+        // Hueco interior del marco (1341x1173): x 0.2–0.8, y 0.21–0.79. Algo más grande para que no se vean juntas.
+        var backgroundRect = CreateRect(card, "Background");
+        SetAnchors(backgroundRect, new Vector2(0.18f, 0.19f), new Vector2(0.82f, 0.81f));
+        var background = backgroundRect.gameObject.AddComponent<Image>();
+
+        Image Face(string faceName)
+        {
+            var rect = CreateRect(card, faceName);
+            SetAnchors(rect, new Vector2(0.26f, 0.27f), new Vector2(0.74f, 0.73f));
+            var image = rect.gameObject.AddComponent<Image>();
+            image.preserveAspect = true;
+            image.raycastTarget = false;
+            return image;
+        }
+
+        var back = Face("Back");
+        var symbol = Face("Symbol");
+
+        var frameRect = CreateRect(card, "Frame");
+        Stretch(frameRect);
+        var frame = frameRect.gameObject.AddComponent<Image>();
+        frame.sprite = cardFrame;
+        frame.raycastTarget = false;
+
+        var button = card.gameObject.AddComponent<Button>();
+        button.targetGraphic = background;
+        // MemoryCardView pinta el fondo según el estado: el botón no tiñe.
+        button.transition = Selectable.Transition.None;
+        button.navigation = new Navigation { mode = Navigation.Mode.None };
+
+        var view = card.gameObject.AddComponent<MemoryCardView>();
+        var so = new SerializedObject(view);
+        so.FindProperty("button").objectReferenceValue = button;
+        so.FindProperty("background").objectReferenceValue = background;
+        so.FindProperty("symbol").objectReferenceValue = symbol;
+        so.FindProperty("back").objectReferenceValue = back;
+        so.ApplyModifiedPropertiesWithoutUndo();
+        return view;
     }
 
     static Image CreateSlicedFrame(Transform parent, string name, Sprite sprite, float borderScale)
