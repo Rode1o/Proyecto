@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using FMODUnity;
 
 /// <summary>
 /// Objeto recogible del mundo. Reutiliza <see cref="Interactable"/> (sin mantener el clic) para
@@ -22,6 +23,9 @@ public class Collectable : MonoBehaviour
     [SerializeField] CollectableDefinition definition;
     [Tooltip("Duración del encogimiento al recogerse (0 = desaparece al instante).")]
     [SerializeField, Min(0f)] float vanishDuration = 0.2f;
+    [Header("Sonidos (FMOD)")]
+    [SerializeField] EventReference sonidoConfirmacion;
+    [SerializeField] EventReference sonidoColision;
 
     public event Action<Collectable> Collected;
 
@@ -54,6 +58,10 @@ public class Collectable : MonoBehaviour
             return;
 
         CurrentState = State.Collecting;
+         if (!sonidoConfirmacion.IsNull)
+        RuntimeManager.PlayOneShot(sonidoConfirmacion, transform.position);
+        if (!sonidoColision.IsNull)
+        RuntimeManager.PlayOneShot(sonidoColision, transform.position);
         Collected?.Invoke(this);
         StartCoroutine(Vanish());
     }
