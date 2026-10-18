@@ -2,6 +2,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 /// <summary>
@@ -14,6 +15,7 @@ static class WeatherBuilder
     const string PrefabPath = "Assets/Prefabs/Weather.prefab";
     const string SkyMaterialPath = "Assets/Art/Shaders/WeatherSky.mat";
     const string RainMaterialPath = "Assets/Art/Materials/Rain.mat";
+    const string StormProfilePath = "Assets/Settings/StormVolumeProfile.asset";
     const string SkyShaderName = "Skybox/Weather Gradient";
     // Material de partículas de URP (transparente, textura redonda por defecto).
     const string UrpParticlesUnlitGuid = "e823cd5b5d27c0f4b8256e7c12ee3e6d";
@@ -35,10 +37,20 @@ static class WeatherBuilder
 
         var rain = CreateRain(root.transform, rainMaterial);
 
+        // Volume global por encima del de la escena; empieza con peso 0 (despejado).
+        var volumeGo = new GameObject("StormVolume");
+        volumeGo.transform.SetParent(root.transform, false);
+        var volume = volumeGo.AddComponent<Volume>();
+        volume.isGlobal = true;
+        volume.priority = 10f;
+        volume.weight = 0f;
+        volume.sharedProfile = GetOrCreateStormProfile();
+
         var weather = root.AddComponent<WeatherController>();
         var so = new SerializedObject(weather);
         so.FindProperty("skybox").objectReferenceValue = skyMaterial;
         so.FindProperty("rain").objectReferenceValue = rain;
+        so.FindProperty("stormVolume").objectReferenceValue = volume;
         so.ApplyModifiedPropertiesWithoutUndo();
 
         EnsureFolder("Assets/Prefabs");
@@ -95,6 +107,45 @@ static class WeatherBuilder
         renderer.lightProbeUsage = LightProbeUsage.Off;
         renderer.reflectionProbeUsage = ReflectionProbeUsage.Off;
         return rain;
+    }
+
+    /// <summary>
+    /// Look de tormenta: menos saturación y exposición, tinte lavanda, sombras moradas y viñeta más
+    /// cerrada. Todo va en la pasada final de URP (LUT + uber), barato en WebGL.
+    /// </summary>
+    static VolumeProfile GetOrCreateStormProfile()
+    {
+        var profile = AssetDatabase.LoadAssetAtPath<VolumeProfile>(StormProfilePath);
+        if (profile != null)
+            return profile;
+
+        profile = ScriptableObject.CreateInstance<VolumeProfile>();
+        AssetDatabase.CreateAsset(profile, StormProfilePath);
+
+        var color = profile.Add<ColorAdjustments>();
+        // Suave: el sol y el ambiente ya oscurecen la escena en tormenta.
+        color.postExposure.Override(-0.1f);
+        color.saturation.Override(-22f);
+        color.colorFilter.Override(new Color32(0xE8, 0xE2, 0xF2, 0xFF));
+
+        var split = profile.Add<SplitToning>();
+        split.shadows.Override(new Color32(0x48, 0x36, 0x53, 0xFF));
+        split.highlights.Override(new Color32(0xA5, 0x9F, 0xAC, 0xFF));
+        split.balance.Override(-20f);
+
+        var vignette = profile.Add<Vignette>();
+        vignette.intensity.Override(0.3f);
+        vignette.color.Override(new Color32(0x1A, 0x12, 0x22, 0xFF));
+
+        // Los componentes del perfil se guardan como subassets.
+        foreach (var component in profile.components)
+        {
+            component.name = component.GetType().Name;
+            AssetDatabase.AddObjectToAsset(component, profile);
+        }
+        EditorUtility.SetDirty(profile);
+        AssetDatabase.SaveAssets();
+        return AssetDatabase.LoadAssetAtPath<VolumeProfile>(StormProfilePath);
     }
 
     static Material GetOrCreateSkyMaterial()

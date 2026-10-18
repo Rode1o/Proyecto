@@ -4,7 +4,7 @@ using UnityEngine.Rendering;
 
 /// <summary>
 /// Clima de la escena según el humor de la oveja: cada "no" (<see cref="SheepEnemy.Rejected"/>)
-/// oscurece el cielo, la luz y el ambiente un paso; al llegar al último, se pone a llover.
+/// oscurece el cielo, la luz, el ambiente y el color de la imagen un paso; al llegar al último, se pone a llover.
 /// Pensado para WebGL: un skybox de degradado, ambiente por colores (sin recalcular GI) y una sola
 /// lluvia de partículas sin colisiones. Solo trabaja mientras el clima está cambiando.
 /// </summary>
@@ -17,6 +17,8 @@ public class WeatherController : MonoBehaviour
     [Tooltip("Vacío = el sol de Lighting (RenderSettings.sun).")]
     [SerializeField] Light sun;
     [SerializeField] ParticleSystem rain;
+    [Tooltip("Volume global con el look de tormenta (color, viñeta); su peso sigue a la tormenta.")]
+    [SerializeField] Volume stormVolume;
 
     [Header("Progresión")]
     [Tooltip("Rechazos hasta la tormenta (normalmente, uno por isla con encuentro).")]
@@ -26,7 +28,7 @@ public class WeatherController : MonoBehaviour
 
     [Header("Luz en tormenta")]
     [SerializeField] Color stormSunColor = new Color32(0xA5, 0x9F, 0xAC, 0xFF);
-    [SerializeField] float stormSunIntensity = 0.7f;
+    [SerializeField] float stormSunIntensity = 1f;
 
     [Header("Ambiente (despejado → tormenta)")]
     [SerializeField] Color clearSky = new(0.62f, 0.68f, 0.78f);
@@ -152,6 +154,10 @@ public class WeatherController : MonoBehaviour
     {
         if (skyInstance != null)
             skyInstance.SetFloat(StormId, storm);
+
+        // El grading se mezcla en la misma pasada final de URP: subir el peso no añade coste.
+        if (stormVolume != null)
+            stormVolume.weight = storm;
 
         if (sun != null)
         {
