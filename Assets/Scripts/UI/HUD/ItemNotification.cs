@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using FMODUnity;
 
 /// <summary>
 /// Aviso "objeto recogido" a la izquierda de la pantalla: icono y nombre en una barra que entra
@@ -27,6 +28,9 @@ public class ItemNotification : MonoBehaviour
     [SerializeField] float queuedHoldDuration = 1f;
     [SerializeField] float exitDuration = 0.3f;
     [SerializeField] float iconPopScale = 1.35f;
+
+    [Header("Sonidos (FMOD)")]
+    [SerializeField] EventReference sonidoAviso;
 
     enum Phase { Hidden, Entering, Holding, Exiting }
 
@@ -76,6 +80,9 @@ public class ItemNotification : MonoBehaviour
         icon.sprite = iconSprite;
         icon.gameObject.SetActive(iconSprite != null);
         label.text = text;
+
+        if (!sonidoAviso.IsNull)
+        RuntimeManager.PlayOneShot(sonidoAviso);
 
         bar.gameObject.SetActive(true);
         phase = Phase.Entering;

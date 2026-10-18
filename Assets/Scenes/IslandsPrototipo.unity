@@ -2223,6 +2223,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 223808276738971748, guid: 4a56e70c654175146b9a0fb31088c694, type: 3}
+      propertyPath: sonidoAviso.Path
+      value: event:/HUD/hud_notification
+      objectReference: {fileID: 0}
+    - target: {fileID: 223808276738971748, guid: 4a56e70c654175146b9a0fb31088c694, type: 3}
+      propertyPath: sonidoAviso.Guid.Data1
+      value: 795240164
+      objectReference: {fileID: 0}
+    - target: {fileID: 223808276738971748, guid: 4a56e70c654175146b9a0fb31088c694, type: 3}
+      propertyPath: sonidoAviso.Guid.Data2
+      value: 1150859959
+      objectReference: {fileID: 0}
+    - target: {fileID: 223808276738971748, guid: 4a56e70c654175146b9a0fb31088c694, type: 3}
+      propertyPath: sonidoAviso.Guid.Data3
+      value: -1259521889
+      objectReference: {fileID: 0}
+    - target: {fileID: 223808276738971748, guid: 4a56e70c654175146b9a0fb31088c694, type: 3}
+      propertyPath: sonidoAviso.Guid.Data4
+      value: -1449244019
+      objectReference: {fileID: 0}
     - target: {fileID: 302675173320872587, guid: 4a56e70c654175146b9a0fb31088c694, type: 3}
       propertyPath: m_TextStyleHashCode
       value: -1183493901
@@ -2730,6 +2750,26 @@ PrefabInstance:
     - target: {fileID: 4382770812087921525, guid: 4a56e70c654175146b9a0fb31088c694, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4724409102038769051, guid: 4a56e70c654175146b9a0fb31088c694, type: 3}
+      propertyPath: dialogBox.Path
+      value: event:/HUD/hud_dialogBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 4724409102038769051, guid: 4a56e70c654175146b9a0fb31088c694, type: 3}
+      propertyPath: dialogBox.Guid.Data1
+      value: 1264822552
+      objectReference: {fileID: 0}
+    - target: {fileID: 4724409102038769051, guid: 4a56e70c654175146b9a0fb31088c694, type: 3}
+      propertyPath: dialogBox.Guid.Data2
+      value: 1310629382
+      objectReference: {fileID: 0}
+    - target: {fileID: 4724409102038769051, guid: 4a56e70c654175146b9a0fb31088c694, type: 3}
+      propertyPath: dialogBox.Guid.Data3
+      value: 170745532
+      objectReference: {fileID: 0}
+    - target: {fileID: 4724409102038769051, guid: 4a56e70c654175146b9a0fb31088c694, type: 3}
+      propertyPath: dialogBox.Guid.Data4
+      value: -1921468393
       objectReference: {fileID: 0}
     - target: {fileID: 4762234264055727895, guid: 4a56e70c654175146b9a0fb31088c694, type: 3}
       propertyPath: m_AnchorMax.x

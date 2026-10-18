@@ -47,6 +47,7 @@ public class DialogBox : MonoBehaviour
     [SerializeField] EventReference openSound;
     [Tooltip("Un sonido por opción, en el mismo orden que los botones (p. ej. Sí, No).")]
     [SerializeField] EventReference[] optionSounds = Array.Empty<EventReference>();
+    [SerializeField] EventReference dialogBox;
 
     Action<int> onChosen;
     bool isReply;
@@ -108,6 +109,7 @@ public class DialogBox : MonoBehaviour
         replyTimer = 0f;
         root.SetActive(true);
         Play(openSound);
+        // Play(dialogBox);
     }
 
     /// <summary>Réplica sin opciones (p. ej. la respuesta de la oveja al rechazarla).</summary>

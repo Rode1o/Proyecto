@@ -829,7 +829,7 @@
 			<value>0</value>
 		</property>
 		<property name="value">
-			<value>0</value>
+			<value>-7</value>
 		</property>
 	</object>
 	<object class="AutomationPoint" id="{f5741d19-c704-4215-ba75-9bc3685f983c}">
@@ -869,7 +869,7 @@
 			<value>0</value>
 		</property>
 		<property name="value">
-			<value>0</value>
+			<value>-11</value>
 		</property>
 	</object>
 	<object class="AutomationPoint" id="{55d1eeb2-4aab-4610-8033-164422443479}">
@@ -901,7 +901,7 @@
 			<value>0</value>
 		</property>
 		<property name="value">
-			<value>0</value>
+			<value>-8</value>
 		</property>
 	</object>
 	<object class="AutomationPoint" id="{a18f1ca7-7270-4f24-8ddb-7fd4344d43ef}">
@@ -933,7 +933,7 @@
 			<value>1</value>
 		</property>
 		<property name="value">
-			<value>0</value>
+			<value>-7</value>
 		</property>
 	</object>
 	<object class="AutomationPoint" id="{f014b439-3ba7-4df1-ad1f-fc697b82a53d}">
@@ -981,7 +981,7 @@
 			<value>1</value>
 		</property>
 		<property name="value">
-			<value>0</value>
+			<value>-9</value>
 		</property>
 	</object>
 	<object class="AutomationPoint" id="{1e835d3b-dcc6-4eb7-95aa-6c379dc2c784}">
@@ -1013,7 +1013,7 @@
 			<value>1</value>
 		</property>
 		<property name="value">
-			<value>0</value>
+			<value>4</value>
 		</property>
 	</object>
 	<object class="AutomationPoint" id="{2f109f38-1d79-4201-85bf-394361709c66}">
@@ -1061,7 +1061,7 @@
 			<value>2</value>
 		</property>
 		<property name="value">
-			<value>0</value>
+			<value>-7</value>
 		</property>
 	</object>
 	<object class="AutomationPoint" id="{e4552a62-1a8f-4709-a97d-dd8e0eedd443}">
@@ -1101,7 +1101,7 @@
 			<value>2</value>
 		</property>
 		<property name="value">
-			<value>0</value>
+			<value>-2</value>
 		</property>
 	</object>
 	<object class="AutomationPoint" id="{a7752c36-c93d-432b-b2f5-08a0506400d9}">
@@ -1133,7 +1133,7 @@
 			<value>2</value>
 		</property>
 		<property name="value">
-			<value>0</value>
+			<value>-2</value>
 		</property>
 	</object>
 	<object class="AutomationPoint" id="{3e5e8a0a-b7e2-4151-be30-b3fd9f3d5831}">
