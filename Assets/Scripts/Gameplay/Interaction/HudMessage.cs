@@ -8,6 +8,7 @@ using UnityEngine;
 /// </summary>
 public class HudMessage : MonoBehaviour
 {
+    [Tooltip("Vacío = el PlayerInteractor de la escena.")]
     [SerializeField] PlayerInteractor interactor;
     [Tooltip("Raíz del mensaje; se activa mientras se muestra.")]
     [SerializeField] GameObject root;
@@ -17,6 +18,8 @@ public class HudMessage : MonoBehaviour
     void Awake()
     {
         root.SetActive(false);
+        if (interactor == null)
+            interactor = FindAnyObjectByType<PlayerInteractor>();
     }
 
     void OnEnable()

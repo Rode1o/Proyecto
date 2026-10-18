@@ -48,6 +48,15 @@ public class OrbitCamera : MonoBehaviour
     float currentDistance;
     bool dragging;
 
+    /// <summary>True mientras el jugador gira la cámara arrastrando con clic derecho.</summary>
+    public bool IsDragging => dragging;
+
+    /// <summary>Gira la cámara en horizontal; el giro se suaviza igual que el arrastre.</summary>
+    public void Rotate(float degrees)
+    {
+        yaw = Mathf.Repeat(yaw + degrees, 360f);
+    }
+
     void Start()
     {
         focus = TargetPoint();

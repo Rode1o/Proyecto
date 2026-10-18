@@ -34,12 +34,11 @@ public class SheepEnemy : MonoBehaviour
 
     [Header("Referencias")]
     [SerializeField] GameSession session;
+    [Tooltip("Todo lo que dice la oveja sale aquí. Vacío = el DialogBox de la escena (el del PlayerHUD).")]
     [SerializeField] DialogBox dialog;
     [SerializeField] ClickToMove player;
     [Tooltip("Entradas del jugador que se desactivan durante el encuentro.")]
     [SerializeField] Behaviour[] inputsToDisable;
-    [Tooltip("Opcional: muestra la respuesta de la oveja al rechazarla.")]
-    [SerializeField] HudMessage hudMessage;
 
     [Header("Casas")]
     [Tooltip("Casa en la que empieza.")]
@@ -93,6 +92,8 @@ public class SheepEnemy : MonoBehaviour
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        if (dialog == null)
+            dialog = FindAnyObjectByType<DialogBox>(FindObjectsInactive.Include);
         minigames = FindObjectsByType<Minigame>(FindObjectsInactive.Include);
         CurrentHouse = startHouse != null ? startHouse : (houses.Length > 0 ? houses[0] : null);
     }
@@ -224,8 +225,8 @@ public class SheepEnemy : MonoBehaviour
         {
             SetState(State.Angry);
             SetPlayerInput(true);
-            if (hudMessage != null)
-                hudMessage.Show(CurrentHouse.RejectReply);
+            if (dialog != null && CurrentHouse != null)
+                dialog.Say(CurrentHouse.Offer.speaker, CurrentHouse.RejectReply);
 
             Rejected?.Invoke(this);
             onRejected.Invoke();

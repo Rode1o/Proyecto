@@ -9,14 +9,18 @@ public class DialogContent
 {
     public string speaker = "Oveja";
     [TextArea(2, 5)] public string text;
-    [Tooltip("Una etiqueta por botón, en orden.")]
+    [Tooltip("Una etiqueta por botón, en orden. Sin opciones, el diálogo se cierra con un clic.")]
     public string[] options = { "Sí", "No" };
+    [Tooltip("Opcional: retrato para este diálogo. Vacío = el retrato por defecto del cuadro.")]
+    public Sprite portrait;
 }
 
 /// <summary>
 /// Cuadro de diálogo modal reutilizable. Muestra un <see cref="DialogContent"/> y devuelve el índice
 /// de la opción elegida. El root incluye un bloqueador a pantalla completa con Raycast Target, así
 /// ClickToMove, PlayerInteractor y OrbitCamera ignoran los clics mientras está abierto.
+/// Un diálogo sin opciones (una réplica) se cierra con un clic en cualquier parte o tras unos segundos,
+/// y devuelve -1.
 /// </summary>
 public class DialogBox : MonoBehaviour
 {
@@ -27,7 +31,19 @@ public class DialogBox : MonoBehaviour
     [SerializeField] Button[] optionButtons;
     [SerializeField] TMP_Text[] optionLabels;
 
+    [Header("Retrato (opcional)")]
+    [SerializeField] Image portrait;
+    [SerializeField] Sprite defaultPortrait;
+
+    [Header("Réplicas sin opciones")]
+    [Tooltip("Bloqueador a pantalla completa: un clic cierra las réplicas.")]
+    [SerializeField] Button dismissArea;
+    [Tooltip("Las réplicas se cierran solas tras estos segundos (0 = solo con clic).")]
+    [SerializeField, Min(0f)] float replyDuration = 3f;
+
     Action<int> onChosen;
+    bool isReply;
+    float replyTimer;
 
     public bool IsOpen => root.activeSelf;
 
@@ -39,6 +55,22 @@ public class DialogBox : MonoBehaviour
             int index = i;
             optionButtons[i].onClick.AddListener(() => Choose(index));
         }
+        if (dismissArea != null)
+            dismissArea.onClick.AddListener(() =>
+            {
+                if (isReply)
+                    Choose(-1);
+            });
+    }
+
+    void Update()
+    {
+        if (!IsOpen || !isReply || replyDuration <= 0f)
+            return;
+
+        replyTimer += Time.unscaledDeltaTime;
+        if (replyTimer >= replyDuration)
+            Choose(-1);
     }
 
     public void Show(DialogContent content, Action<int> chosen)
@@ -47,16 +79,32 @@ public class DialogBox : MonoBehaviour
         speakerText.text = content.speaker;
         bodyText.text = content.text;
 
+        if (portrait != null)
+        {
+            portrait.sprite = content.portrait != null ? content.portrait : defaultPortrait;
+            portrait.enabled = portrait.sprite != null;
+        }
+
+        var optionCount = 0;
         for (int i = 0; i < optionButtons.Length; i++)
         {
             var hasOption = content.options != null && i < content.options.Length && !string.IsNullOrEmpty(content.options[i]);
             optionButtons[i].gameObject.SetActive(hasOption);
             if (hasOption)
+            {
                 optionLabels[i].text = content.options[i];
+                optionCount++;
+            }
         }
 
+        isReply = optionCount == 0;
+        replyTimer = 0f;
         root.SetActive(true);
     }
+
+    /// <summary>Réplica sin opciones (p. ej. la respuesta de la oveja al rechazarla).</summary>
+    public void Say(string speaker, string text, Sprite portraitOverride = null) =>
+        Show(new DialogContent { speaker = speaker, text = text, options = Array.Empty<string>(), portrait = portraitOverride }, null);
 
     public void Choose(int index)
     {

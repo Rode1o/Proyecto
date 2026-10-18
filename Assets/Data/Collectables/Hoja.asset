@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CollectableDefinition
   displayName: Hoja
   category: 0
-  icon: {fileID: 21300000, guid: e0520ab17062eb04caddc530ca823643, type: 3}
+  icon: {fileID: 21300000, guid: e3deebc2a16a8d347aab9e652404bc13, type: 3}
